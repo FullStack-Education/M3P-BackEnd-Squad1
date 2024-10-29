@@ -25,7 +25,6 @@ public class NotaService implements NotaInterface {
     private final MateriaService materiaService;
     private final AlunoService alunoService;
 
-    @Autowired
     public NotaService(NotaRepository notaRepository,
                        AlunoService alunoService,
                        DocenteService docenteService,

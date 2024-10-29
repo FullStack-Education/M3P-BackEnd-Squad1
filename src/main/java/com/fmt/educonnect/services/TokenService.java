@@ -17,8 +17,8 @@ import java.time.ZoneOffset;
 @Service
 public class TokenService {
 
-    @Value("${api.security.token.secret}")
-    private String secret;
+    //@Value("${api.security.token.secret}")
+    private String secret = "SECRET-KEY-TESTE";
 
 
     public String generateToken(CadastroEntity user) {

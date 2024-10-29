@@ -4,13 +4,11 @@ import com.fmt.educonnect.controllers.dtos.requests.RequestCadastroDTO;
 import com.fmt.educonnect.controllers.dtos.responses.ResponseCadastroDTO;
 import com.fmt.educonnect.datasource.entities.CadastroEntity;
 import com.fmt.educonnect.infra.exceptions.CadastroNotFoundException;
-import com.fmt.educonnect.infra.exceptions.DocenteNotFoundException;
 import com.fmt.educonnect.infra.exceptions.PapelNotFoundException;
 import com.fmt.educonnect.services.CadastroService;
 import com.fmt.educonnect.services.LoginService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +20,13 @@ import java.util.List;
 @RequestMapping("cadastro")
 public class CadastroController {
 
-    @Autowired
-    private LoginService loginService;
+    private final LoginService loginService;
+    private final CadastroService cadastroService;
 
-    @Autowired
-    private CadastroService cadastroService;
+    public CadastroController(LoginService loginService, CadastroService cadastroService) {
+        this.loginService = loginService;
+        this.cadastroService = cadastroService;
+    }
 
 
     @PostMapping()

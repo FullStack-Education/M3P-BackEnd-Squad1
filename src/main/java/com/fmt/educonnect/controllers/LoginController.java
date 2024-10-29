@@ -6,7 +6,6 @@ import com.fmt.educonnect.datasource.entities.CadastroEntity;
 import com.fmt.educonnect.services.TokenService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,11 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("login")
 public class LoginController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
-    @Autowired
-    private TokenService tokenService;
+    public LoginController(AuthenticationManager authenticationManager, TokenService tokenService) {
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
+    }
 
     @PostMapping()
     public ResponseEntity login(@Valid @RequestBody RequestLoginDTO body) {

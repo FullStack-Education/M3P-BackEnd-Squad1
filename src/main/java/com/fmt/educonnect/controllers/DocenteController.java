@@ -8,7 +8,6 @@ import com.fmt.educonnect.infra.exceptions.CadastroNotFoundException;
 import com.fmt.educonnect.services.DocenteService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +19,11 @@ import java.util.List;
 @RequestMapping("docentes")
 public class DocenteController {
 
-    @Autowired
-    private DocenteService docenteService;
+    private final DocenteService docenteService;
+
+    public DocenteController(DocenteService docenteService) {
+        this.docenteService = docenteService;
+    }
 
     @PostMapping
     public ResponseEntity<?> criarDocente(@Valid @RequestBody RequestDocenteDTO requestDocenteDTO) {

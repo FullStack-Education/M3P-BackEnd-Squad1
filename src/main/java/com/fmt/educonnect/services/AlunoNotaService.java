@@ -17,7 +17,6 @@ public class AlunoNotaService implements AlunoNotaInterface {
     private final CadastroService cadastroService;
     private final LoginService loginService;
 
-    @Autowired
     public AlunoNotaService(NotaService notaService,
                             AlunoService alunoService,
                             TurmaService turmaService,

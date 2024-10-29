@@ -23,7 +23,6 @@ public class MateriaService implements MateriaInterface {
     private final MateriaRepository materiaRepository;
     private final CursoService cursoService;
 
-    @Autowired
     public MateriaService(MateriaRepository materiaRepository, CursoService cursoService) {
         this.materiaRepository = materiaRepository;
         this.cursoService = cursoService;

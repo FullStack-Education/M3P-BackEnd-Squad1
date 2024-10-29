@@ -22,7 +22,6 @@ public class DocenteService implements DocenteInterface {
     private final DocenteRepository docenteRepository;
     private final CadastroService cadastroService;
 
-    @Autowired
     public DocenteService(DocenteRepository docenteRepository, CadastroService cadastroService) {
         this.docenteRepository = docenteRepository;
         this.cadastroService = cadastroService;

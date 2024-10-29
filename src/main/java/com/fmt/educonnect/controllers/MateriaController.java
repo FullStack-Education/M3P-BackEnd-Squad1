@@ -3,13 +3,10 @@ package com.fmt.educonnect.controllers;
 import com.fmt.educonnect.controllers.dtos.requests.RequestMateriaDTO;
 import com.fmt.educonnect.controllers.dtos.responses.ResponseMateriaDTO;
 import com.fmt.educonnect.datasource.entities.MateriaEntity;
-import com.fmt.educonnect.infra.exceptions.CursoNotFoundException;
 import com.fmt.educonnect.infra.exceptions.MateriaNotFoundException;
-import com.fmt.educonnect.services.CursoService;
 import com.fmt.educonnect.services.MateriaService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +20,6 @@ public class MateriaController {
 
     private final MateriaService materiaService;
 
-    @Autowired
     public MateriaController(MateriaService materiaService) {
         this.materiaService = materiaService;
     }

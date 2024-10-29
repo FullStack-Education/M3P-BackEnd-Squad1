@@ -23,7 +23,6 @@ public class CadastroService implements CadastroInterface {
     private final CadastroRepository cadastroRepository;
     private final PapelService papelService;
 
-    @Autowired
     public CadastroService(CadastroRepository cadastroRepository, PapelService papelService) {
         this.cadastroRepository = cadastroRepository;
         this.papelService = papelService;

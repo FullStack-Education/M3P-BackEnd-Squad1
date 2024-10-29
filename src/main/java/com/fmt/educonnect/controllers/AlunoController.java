@@ -14,28 +14,26 @@ import com.fmt.educonnect.services.TokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
-
-import static org.springframework.security.config.Elements.JWT;
 
 @Slf4j
 @RestController
 @RequestMapping("alunos")
 public class AlunoController {
 
-    @Autowired
-    private AlunoNotaService alunoNotaService;
-    @Autowired AlunoService alunoService;
+    private final AlunoNotaService alunoNotaService;
+    private final AlunoService alunoService;
+    private final TokenService tokenService;
 
-    @Autowired
-    TokenService tokenService;
+    public AlunoController(AlunoNotaService alunoNotaService, AlunoService alunoService, TokenService tokenService) {
+        this.alunoNotaService = alunoNotaService;
+        this.alunoService = alunoService;
+        this.tokenService = tokenService;
+    }
 
     @PostMapping
     public ResponseEntity<?> criarAluno(@Valid  @RequestBody RequestAlunoDTO requestAlunoDTO) {

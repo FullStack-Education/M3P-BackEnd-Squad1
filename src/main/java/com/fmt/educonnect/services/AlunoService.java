@@ -22,9 +22,7 @@ public class AlunoService implements AlunoInterface {
 
     private final AlunoRepository alunoRepository;
 
-    @Autowired
-    public AlunoService(AlunoRepository alunoRepository
-    ) {
+    public AlunoService(AlunoRepository alunoRepository) {
         this.alunoRepository = alunoRepository;
     }
 

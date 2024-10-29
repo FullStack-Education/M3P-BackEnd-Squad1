@@ -7,7 +7,6 @@ import com.fmt.educonnect.infra.exceptions.*;
 import com.fmt.educonnect.services.NotaService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,6 @@ public class NotaController {
 
     private final NotaService notaService;
 
-    @Autowired
     public NotaController(NotaService notaService) {
         this.notaService = notaService;
     }

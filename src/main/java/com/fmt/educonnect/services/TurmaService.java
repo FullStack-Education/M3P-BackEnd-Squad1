@@ -26,7 +26,6 @@ public class TurmaService implements TurmaInterface {
     private final CursoService cursoService;
     private final DocenteService docenteService;
 
-    @Autowired
     public TurmaService(TurmaRepository turmaRepository,
                         AlunoService alunoService,
                         CursoService cursoService,

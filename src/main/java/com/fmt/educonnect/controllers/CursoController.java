@@ -1,15 +1,11 @@
 package com.fmt.educonnect.controllers;
 import com.fmt.educonnect.controllers.dtos.requests.RequestCursoDTO;
 import com.fmt.educonnect.controllers.dtos.responses.ResponseCursoDTO;
-import com.fmt.educonnect.controllers.dtos.responses.ResponseCursoMateriasDTO;
 import com.fmt.educonnect.infra.exceptions.CursoNotFoundException;
-import com.fmt.educonnect.infra.exceptions.DocenteNotFoundException;
 import com.fmt.educonnect.datasource.entities.CursoEntity;
-import com.fmt.educonnect.infra.exceptions.MateriaNotFoundException;
 import com.fmt.educonnect.services.CursoService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +17,11 @@ import java.util.List;
 @RequestMapping("cursos")
 public class CursoController {
 
-    @Autowired
-    private CursoService cursoService;
+    private final CursoService cursoService;
+
+    public CursoController(CursoService cursoService) {
+        this.cursoService = cursoService;
+    }
 
     @PostMapping
     public ResponseEntity<ResponseCursoDTO> criarCurso(@Valid @RequestBody RequestCursoDTO requestCursoDTO) {
