@@ -14,10 +14,10 @@ INSERT INTO cursos (id, nome)
 VALUES (2, 'Curso B');
 
 INSERT INTO usuarios (id, login, senha, role, papel_id)
-VALUES (1, 'admin', '$2a$12$XOOpwCeFKNnelqXt/mfF4e2bUfZbOLns0P2oHy8R.OrgedboiWyU.', 1, 1);
+VALUES (1, 'admin', '$2a$12$XOOpwCeFKNnelqXt/mfF4e2bUfZbOLns0P2oHy8R.OrgedboiWyU.', 0, 1);
 
 INSERT INTO usuarios (id, login, senha, role, papel_id)
-VALUES (2, 'aluno', '$2a$12$XOOpwCeFKNnelqXt/mfF4e2bUfZbOLns0P2oHy8R.OrgedboiWyU.', 2, 2);
+VALUES (2, 'aluno', '$2a$12$XOOpwCeFKNnelqXt/mfF4e2bUfZbOLns0P2oHy8R.OrgedboiWyU.', 4, 2);
 
 INSERT INTO usuarios (id, login, senha, role, papel_id)
 VALUES (3, 'professor', '$2a$12$XOOpwCeFKNnelqXt/mfF4e2bUfZbOLns0P2oHy8R.OrgedboiWyU.', 3, 3);

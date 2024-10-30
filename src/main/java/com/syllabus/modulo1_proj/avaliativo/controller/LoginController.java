@@ -37,7 +37,7 @@ public class LoginController {
         logger.debug("Autenticação de usuário.");
         var token = tokenService.generateToken((Usuario) auth.getPrincipal());
 
-        return ResponseEntity.ok(new DtoTokenResponse(token));
+        return ResponseEntity.ok(new DtoTokenResponse(token, ((Usuario) auth.getPrincipal()).getRole().toString()));
     }
 
 }
