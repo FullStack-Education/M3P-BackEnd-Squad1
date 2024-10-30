@@ -33,6 +33,7 @@ public class SecConfig {
 
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
 
                         .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/cadastro").hasRole("ADMIN")
@@ -54,6 +55,7 @@ public class SecConfig {
                         .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
+
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(filtroSegurança, UsernamePasswordAuthenticationFilter.class)
                 .build();
