@@ -8,3 +8,22 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
+    networks:
+      - minha-rede
+
+  projeto_ava:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: projeto_ava
+    environment:
+      - POSTGRES_DB=postgres
+      - PORT=5432
+    depends_on:
+      - postgres
+    networks:
+      - minha-rede
+
+networks:
+  minha-rede:
+    driver: bridge
