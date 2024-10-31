@@ -21,6 +21,10 @@ public class DtoDocenteResponse {
     private String email;
     private String naturalidade;
     private String cep;
+    private String cidade;
+    private String estado;
+    private String logradouro;
+    private String bairro;
     private String numero;
     private Turma turma;
     private String complemento;
@@ -33,6 +37,10 @@ public class DtoDocenteResponse {
         this.nome = docente.getNome();
         this.id = docente.getId();
         this.cep = docente.getCep();
+        this.bairro = docente.getBairro();
+        this.cidade = docente.getCidade();
+        this.logradouro = docente.getLogradouro();
+        this.estado = docente.getEstado();
         this.cpf = docente.getCpf();
         this.rg = docente.getRg();
         this.numero = docente.getNumero();
@@ -167,4 +175,43 @@ public class DtoDocenteResponse {
         this.referencia = referencia;
     }
 
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public ArrayList<String> getMaterias() {
+        return materias;
+    }
+
+    public void setMaterias(ArrayList<String> materias) {
+        this.materias = materias;
+    }
 }

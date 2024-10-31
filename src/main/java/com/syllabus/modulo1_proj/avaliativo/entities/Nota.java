@@ -1,10 +1,17 @@
 package com.syllabus.modulo1_proj.avaliativo.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "notas")
-public class Nota {
+public class Nota implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +23,10 @@ public class Nota {
 
     @Column(name = "data_nota")
     private LocalDate dataNota;
+
     private LocalDate dataTermino;
+
+    @Column(name = "nome_avaliacao")
     private String nomeAvaliacao;
     private String horario;
 
@@ -32,7 +42,7 @@ public class Nota {
     @JoinColumn(name = "materia_id", nullable = false)
     private Materia materia;
 
-    @OneToOne
+    @ManyToOne
     private Turma turma;
 
 
@@ -125,4 +135,6 @@ public class Nota {
     public void setHorario(String horario) {
         this.horario = horario;
     }
+
+
 }

@@ -2,12 +2,13 @@ package com.syllabus.modulo1_proj.avaliativo.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @AllArgsConstructor
 @Entity
 @Table(name = "turmas")
-public class Turma {
+public class Turma implements Serializable  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

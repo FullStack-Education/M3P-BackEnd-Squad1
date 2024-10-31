@@ -12,7 +12,7 @@ public class DtoNotaResponse {
     private Long id;
     private Double valor;
     private LocalDate dataNota;
-    private Aluno aluno;
+    private String aluno;
     private Docente docente;
     private Materia materia;
     private Turma turma;
@@ -31,7 +31,7 @@ public class DtoNotaResponse {
         this.valor = nota.getValor();
         this.dataNota = nota.getDataNota();
         this.id = nota.getId();
-        this.aluno = nota.getAluno();
+        this.aluno = nota.getAluno().getNome();
         this.docente = nota.getDocente();
         this.materia = nota.getMateria();
         this.turma = nota.getTurma();
@@ -73,11 +73,20 @@ public class DtoNotaResponse {
         this.dataNota = dataNota;
     }
 
-    public Aluno getAluno() {
+//    public Aluno getAluno() {
+//        return aluno;
+//    }
+//
+//    public void setAluno(Aluno aluno) {
+//        this.aluno = aluno;
+//    }
+
+
+    public String getAluno() {
         return aluno;
     }
 
-    public void setAluno(Aluno aluno) {
+    public void setAluno(String aluno) {
         this.aluno = aluno;
     }
 

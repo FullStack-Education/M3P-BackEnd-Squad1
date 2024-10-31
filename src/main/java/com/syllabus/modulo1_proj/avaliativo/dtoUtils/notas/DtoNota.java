@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class DtoNota {
     @NotNull
     private Double valor;
-    private LocalDate dataNota = LocalDate.now();
+    private LocalDate dataNota;
 
     @NotNull
     @Min(value = 0, message = "Código do Aluno inválido.")
@@ -23,10 +23,19 @@ public class DtoNota {
     @Min(value = 0, message = "Código da Materia inválido.")
     private Long materia_id;
 
+    @NotNull
+    @Min(value = 0, message = "Código da Turma inválido.")
     private Long turma_id;
+
+    @NotNull
     private LocalDate dataTermino;
-    private String nomeAvaliacao;
+
+    @NotNull
     private String horario;
+
+    @NotNull
+    private String nomeAvaliacao;
+
 
     public DtoNota(){}
     public DtoNota(Double valor, LocalDate dataNota, Long aluno_id, Long docente_id, Long materia_id) {
