@@ -1,4 +1,5 @@
 package com.syllabus.modulo1_proj.avaliativo.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
@@ -32,6 +33,7 @@ public class Aluno {
     private String numero;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
