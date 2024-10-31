@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-@AllArgsConstructor
 public class DtoAlunoResponse {
 
     private String nome;
@@ -24,6 +23,8 @@ public class DtoAlunoResponse {
     private String cep;
     private String numero;
     private Turma turma;
+    private String complemento;
+    private String referencia;
 
 
     public DtoAlunoResponse(){}
@@ -37,6 +38,8 @@ public class DtoAlunoResponse {
         this.id = aluno.getId();
         this.cep = aluno.getCep();
         this.cpf = aluno.getCpf();
+        this.rg = aluno.getRg();
+        this.numero = aluno.getNumero();
         this.email = aluno.getEmail();
         this.genero = aluno.getGenero();
         this.nascimento = aluno.getDataNascimento();
@@ -44,6 +47,8 @@ public class DtoAlunoResponse {
         this.naturalidade = aluno.getNaturalidade();
         this.turma = aluno.getTurma();
         this.telefone = aluno.getTelefone();
+        this.complemento = aluno.getComplemento();
+        this.referencia = aluno.getReferencia();
     }
 
     public String getNome() {
@@ -148,5 +153,21 @@ public class DtoAlunoResponse {
 
     public void setTurma(Turma turma) {
         this.turma = turma;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
     }
 }

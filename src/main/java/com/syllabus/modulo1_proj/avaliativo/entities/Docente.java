@@ -1,4 +1,5 @@
 package com.syllabus.modulo1_proj.avaliativo.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
@@ -21,8 +22,9 @@ public class Docente {
     @Column(name = "data_entrada", nullable = false)
     private LocalDate dataEntrada;
 
-    private String genero;
+    @Column(name = "data_nascimento", nullable = false)
     private LocalDate nascimento;
+    private String genero;
     private String cpf;
     private String rg;
     private String estadoCivil;
@@ -31,9 +33,12 @@ public class Docente {
     private String naturalidade;
     private String cep;
     private String numero;
+    private String referencia;
+    private String complemento;
     private ArrayList<String> materias;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
@@ -41,7 +46,6 @@ public class Docente {
     public Docente(Long id, String login, LocalDate dataEntrada, Papel papel) {
         this.id = id;
         this.nome = login;
-        this.dataEntrada = dataEntrada;
     }
 
     public Long getId() {
@@ -58,14 +62,6 @@ public class Docente {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public LocalDate getDataEntrada() {
-        return dataEntrada;
-    }
-
-    public void setDataEntrada(LocalDate dataEntrada) {
-        this.dataEntrada = dataEntrada;
     }
 
     public Usuario getUsuario() {
@@ -162,5 +158,29 @@ public class Docente {
 
     public void setMaterias(ArrayList<String> materias) {
         this.materias = materias;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public LocalDate getDataEntrada() {
+        return dataEntrada;
+    }
+
+    public void setDataEntrada(LocalDate dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 }

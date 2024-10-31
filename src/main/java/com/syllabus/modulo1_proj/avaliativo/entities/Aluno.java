@@ -31,6 +31,8 @@ public class Aluno {
     private String naturalidade;
     private String cep;
     private String numero;
+    private String referencia;
+    private String complemento;
 
     @OneToOne
     @JsonIgnore
@@ -160,5 +162,21 @@ public class Aluno {
 
     public void setNumero(String numero) {
         this.numero = numero;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 }
