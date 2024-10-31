@@ -5,6 +5,7 @@ import com.syllabus.modulo1_proj.avaliativo.entities.Docente;
 import com.syllabus.modulo1_proj.avaliativo.entities.Turma;
 import com.syllabus.modulo1_proj.avaliativo.repository.CursoRepository;
 import com.syllabus.modulo1_proj.avaliativo.repository.DocenteRepository;
+import com.syllabus.modulo1_proj.avaliativo.repository.MateriaRepository;
 import com.syllabus.modulo1_proj.avaliativo.repository.TurmaRepository;
 import com.syllabus.modulo1_proj.avaliativo.service.TurmaService;
 import jakarta.transaction.Transactional;
@@ -25,21 +26,23 @@ public class TurmaImpl implements TurmaService {
     private final TurmaRepository repository;
     private final CursoRepository cursoRepo;
     private final DocenteRepository docenteRepo;
-    public TurmaImpl(TurmaRepository repository, CursoRepository cursoRepo, DocenteRepository docenteRepo) {
+    private final MateriaRepository materiaRepository;
+    public TurmaImpl(TurmaRepository repository, CursoRepository cursoRepo, DocenteRepository docenteRepo, MateriaRepository materiaRepository) {
         this.repository = repository;
         this.cursoRepo = cursoRepo;
         this.docenteRepo = docenteRepo;
+        this.materiaRepository = materiaRepository;
     }
 
     @Override
     @Transactional
     public DtoTurmaResponse criarTurma(DtoTurma turma) {
-        if (!cursoRepo.existsById(turma.getCurso_id())) {
-            logger.error("É necessário um Curso válido para se cadastrar uma Turma.");
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "É necessário um Curso válido para se cadastrar uma Turma."
-            );
-        }
+//        if (!cursoRepo.existsById(turma.getCurso_id())) {
+//            logger.error("É necessário um Curso válido para se cadastrar uma Turma.");
+//            throw new ResponseStatusException(
+//                    HttpStatus.NOT_FOUND, "É necessário um Curso válido para se cadastrar uma Turma."
+//            );
+//        }
 
         if (!docenteRepo.existsById(turma.getDocente_id())) {
             logger.error("É necessário um Docente cadastrado para a Turma.");
@@ -53,6 +56,10 @@ public class TurmaImpl implements TurmaService {
         novaTurma.setDocente(docente);
         novaTurma.setNome(turma.getNome());
         novaTurma.setCurso(cursoRepo.getById(turma.getCurso_id()));
+        novaTurma.setDataInicio(turma.getDataInicio());
+        novaTurma.setDataTermino(turma.getDataTermino());
+        novaTurma.setMateria(materiaRepository.findById(turma.getMateria_id()).get());
+
 
         repository.save(novaTurma);
         logger.info("Nova Turma criada.");

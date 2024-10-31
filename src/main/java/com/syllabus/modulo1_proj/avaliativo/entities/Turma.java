@@ -2,6 +2,8 @@ package com.syllabus.modulo1_proj.avaliativo.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @Entity
 @Table(name = "turmas")
@@ -22,6 +24,12 @@ public class Turma {
     @ManyToOne(optional = false)
     @JoinColumn(name = "curso_id", nullable = false)
     private Curso curso;
+
+    private LocalDate dataInicio;
+    private LocalDate dataTermino;
+
+    @ManyToOne
+    private  Materia materia;
 
 
     public Turma(){}
@@ -60,6 +68,30 @@ public class Turma {
 
     public void setDocente(Docente docente) {
         this.docente = docente;
+    }
+
+    public LocalDate getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(LocalDate dataTermino) {
+        this.dataTermino = dataTermino;
+    }
+
+    public Materia getMateria() {
+        return materia;
+    }
+
+    public void setMateria(Materia materia) {
+        this.materia = materia;
     }
 
 
