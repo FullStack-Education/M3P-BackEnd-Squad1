@@ -35,6 +35,15 @@ public class DtoAlunoResponse {
     public DtoAlunoResponse(Aluno aluno) {
         this.nome = aluno.getNome();
         this.id = aluno.getId();
+        this.cep = aluno.getCep();
+        this.cpf = aluno.getCpf();
+        this.email = aluno.getEmail();
+        this.genero = aluno.getGenero();
+        this.nascimento = aluno.getDataNascimento();
+        this.estadoCivil = aluno.getEstadoCivil();
+        this.naturalidade = aluno.getNaturalidade();
+        this.turma = aluno.getTurma();
+        this.telefone = aluno.getTelefone();
     }
 
     public String getNome() {

@@ -7,6 +7,9 @@ VALUES (2, 'ALUNO');
 INSERT INTO papeis (id, nome_papel)
 VALUES (3, 'PROFESSOR');
 
+INSERT INTO papeis (id, nome_papel)
+VALUES (4, 'ALUNO');
+
 INSERT INTO cursos (id, nome)
 VALUES (1, 'Curso A');
 
@@ -22,6 +25,9 @@ VALUES (2, 'aluno', '$2a$12$XOOpwCeFKNnelqXt/mfF4e2bUfZbOLns0P2oHy8R.OrgedboiWyU
 INSERT INTO usuarios (id, login, senha, role, papel_id)
 VALUES (3, 'professor', '$2a$12$XOOpwCeFKNnelqXt/mfF4e2bUfZbOLns0P2oHy8R.OrgedboiWyU.', 3, 3);
 
+INSERT INTO usuarios (id, login, senha, role, papel_id)
+VALUES (4, 'aluno2', '$2a$12$XOOpwCeFKNnelqXt/mfF4e2bUfZbOLns0P2oHy8R.OrgedboiWyU.', 4, 4);
+
 INSERT INTO docentes (id, data_entrada , nome , usuario_id)
 VALUES (1, '1990-10-10', 'Paulo César', 2);
 
@@ -31,11 +37,11 @@ VALUES (2, '1990-10-10', 'Luiz Otávio', 3);
 INSERT INTO turmas (id, nome , curso_id , professor_id)
 VALUES (1, 'Turma 01', 1, 1);
 
-INSERT INTO alunos (id, nome, data_nascimento, cep, genero, turma_id , usuario_id)
-VALUES (1, 'Sérgio Malandro', '1990-10-10', '88040030', 'Masculino', 1, 2);
+INSERT INTO alunos (id, nome, data_nascimento, cep, email, genero, turma_id , usuario_id)
+VALUES (1, 'Sérgio Malandro', '1990-10-10', '88040030', 'sergio@aluno.com', 'Masculino', 1, 2);
 
-INSERT INTO alunos (id, nome, data_nascimento, cep, genero, turma_id , usuario_id)
-VALUES (2, 'Maurício de Souza', '1990-10-10', '88040030', 'Masculino', 1, 2);
+INSERT INTO alunos (id, nome, data_nascimento, cep, telefone, naturalidade, cpf, estado_civil, email, genero, turma_id , usuario_id)
+VALUES (2, 'Maurício de Souza', '1990-10-10', '88040030', '(48)9 9999-9999', 'Florianópolis', '000.000.000-00', 'Casado(a)', 'mauricio@aluno.com', 'Masculino', 1, 4);
 
 INSERT INTO materias (id, nome , curso_id)
 VALUES (1, 'Matemática', 1);
