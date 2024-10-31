@@ -14,8 +14,11 @@ public class Nota {
     @Column(name = "valor")
     private Double valor;
 
-    @Column(name = "data")
+    @Column(name = "data_nota")
     private LocalDate dataNota;
+    private LocalDate dataTermino;
+    private String nomeAvaliacao;
+    private String horario;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "aluno_id", nullable = false)
@@ -28,6 +31,9 @@ public class Nota {
     @ManyToOne(optional = false)
     @JoinColumn(name = "materia_id", nullable = false)
     private Materia materia;
+
+    @OneToOne
+    private Turma turma;
 
 
     public Nota(){}
@@ -86,5 +92,37 @@ public class Nota {
 
     public void setMateria(Materia materia) {
         this.materia = materia;
+    }
+
+    public LocalDate getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(LocalDate dataTermino) {
+        this.dataTermino = dataTermino;
+    }
+
+    public String getNomeAvaliacao() {
+        return nomeAvaliacao;
+    }
+
+    public void setNomeAvaliacao(String nomeAvaliacao) {
+        this.nomeAvaliacao = nomeAvaliacao;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 }

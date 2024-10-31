@@ -37,6 +37,12 @@ public class MateriaController {
         return ResponseEntity.status(HttpStatus.OK).body(service.obterMateriaPorId(id));
     }
 
+    @GetMapping()
+    public ResponseEntity<List<Materia>> listarTodasMaterias() {
+        logger.info("Solicitada listagem de materias");
+        return ResponseEntity.status(HttpStatus.OK).body(service.listarTodasMaterias());
+    }
+
     @PutMapping("{id}")
     public ResponseEntity<Materia> atualizarMateria(@PathVariable Long id, @RequestBody @Valid DtoMateria materia) {
         logger.info("Requerida alteração da Materia ID {}", id);

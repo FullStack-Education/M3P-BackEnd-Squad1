@@ -1,7 +1,8 @@
 package com.syllabus.modulo1_proj.avaliativo.entities;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @Entity
 @Table(name = "turmas")
 public class Turma {
@@ -60,4 +61,6 @@ public class Turma {
     public void setDocente(Docente docente) {
         this.docente = docente;
     }
+
+
 }

@@ -52,11 +52,11 @@ VALUES (2, 'Física', 1);
 INSERT INTO materias (id, nome , curso_id)
 VALUES (3, 'Português', 2);
 
-INSERT INTO notas (id, aluno_id , data , docente_id , materia_id, valor)
+INSERT INTO notas (id, aluno_id , data_nota , docente_id , materia_id, valor)
 VALUES (1, 1, '2024-10-10', 1, 2, 10.0);
 
-INSERT INTO notas (id, aluno_id , data , docente_id , materia_id, valor)
+INSERT INTO notas (id, aluno_id , data_nota , docente_id , materia_id, valor)
 VALUES (2, 1, '2024-10-10', 1, 2, 9.0);
 
-INSERT INTO notas (id, aluno_id , data , docente_id , materia_id, valor)
+INSERT INTO notas (id, aluno_id , data_nota , docente_id , materia_id, valor)
 VALUES (3, 1, '2024-10-10', 1, 2, 9.5);
