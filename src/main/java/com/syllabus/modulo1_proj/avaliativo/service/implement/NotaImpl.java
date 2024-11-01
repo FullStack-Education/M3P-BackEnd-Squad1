@@ -90,32 +90,32 @@ public class NotaImpl implements NotaService {
     @Override
     @Transactional
     public DtoNotaResponse criarNota(DtoNota nota) {
-//        if (alunoRepo.getById(nota.getAluno_id()).getUsuario().getRole() != UsuarioPapel.ALUNO) {
-//            logger.error("Uma NOTA só pode ser atribuída a um aluno (ROLE_ALUNO).");
-//            throw new ResponseStatusException(
-//                    HttpStatus.FORBIDDEN, "Uma nota só pode ser atribuída a um aluno (role: ALUNO).");
-//        }
-//
-//        if (!alunoRepo.existsById(nota.getAluno_id())) {
-//            logger.error("Aluno não encontrado para se cadastrar uma nota. ID informado: {}", nota.getAluno_id());
-//            throw new ResponseStatusException(
-//                    HttpStatus.NOT_FOUND, "Aluno não encontrado para se cadastrar uma nota."
-//            );
-//        }
-//
-//        if (!materiaRepo.existsById(nota.getMateria_id())) {
-//            logger.error("Materia inexistente para se cadastrar uma nota");
-//            throw new ResponseStatusException(
-//                    HttpStatus.NOT_FOUND, "É necessário haver uma matéria para se cadastrar uma Nota."
-//            );
-//        }
-//
-//        if (!docenteRepo.existsById(nota.getDocente_id())) {
-//            logger.error("Impossível cadastrar nota sem haver Professor.");
-//            throw new ResponseStatusException(
-//                    HttpStatus.NOT_FOUND, "Docente não encontrado para se cadastrar uma nota."
-//            );
-//        }
+        if (alunoRepo.getById(nota.getAluno_id()).getUsuario().getRole() != UsuarioPapel.ALUNO) {
+            logger.error("Uma NOTA só pode ser atribuída a um aluno (ROLE_ALUNO).");
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "Uma nota só pode ser atribuída a um aluno (role: ALUNO).");
+        }
+
+        if (!alunoRepo.existsById(nota.getAluno_id())) {
+            logger.error("Aluno não encontrado para se cadastrar uma nota. ID informado: {}", nota.getAluno_id());
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Aluno não encontrado para se cadastrar uma nota."
+            );
+        }
+
+        if (!materiaRepo.existsById(nota.getMateria_id())) {
+            logger.error("Materia inexistente para se cadastrar uma nota");
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "É necessário haver uma matéria para se cadastrar uma Nota."
+            );
+        }
+
+        if (!docenteRepo.existsById(nota.getDocente_id())) {
+            logger.error("Impossível cadastrar nota sem haver Professor.");
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Docente não encontrado para se cadastrar uma nota."
+            );
+        }
 
         Nota novaNota = new Nota();
 

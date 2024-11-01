@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "notas")
 public class Nota implements Serializable {
