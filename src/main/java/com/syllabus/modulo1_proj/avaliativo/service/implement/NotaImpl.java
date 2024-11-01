@@ -45,7 +45,7 @@ public class NotaImpl implements NotaService {
 
     @Override
     public List<DtoNotaResponse> listarNotasPorAluno(Long alunoId) {
-        if (!repository.existsById(alunoId)) {
+        if (!alunoRepo.existsById(alunoId)) {
             logger.error("Aluno não encontrado para listagem de notas, ID informado: {}", alunoId);
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Aluno não encontrado para listagem de notas.");

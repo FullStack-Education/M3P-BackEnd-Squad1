@@ -49,17 +49,20 @@ public class LoginController {
 
         Long usuarioId = ((Usuario) auth.getPrincipal()).getId();
         String nome;
+        String entityId = "root";
 
         if (((Usuario) auth.getPrincipal()).getRole().toString() == "ALUNO") {
             nome = alunoRepository.buscarLogado(usuarioId).getNome();
+            entityId = alunoRepository.buscarLogado(usuarioId).getId().toString();
         }
         else if (((Usuario) auth.getPrincipal()).getRole().toString() == "PROFESSOR") {
             nome = docenteRepository.buscarLogado(usuarioId).getNome();
+            entityId = docenteRepository.buscarLogado(usuarioId).getId().toString();
         } else {
             nome = "Administrador (root)";
         }
 
-        return ResponseEntity.ok(new DtoTokenResponse(token, ((Usuario) auth.getPrincipal()).getRole().toString(), nome));
+        return ResponseEntity.ok(new DtoTokenResponse(token, ((Usuario) auth.getPrincipal()).getRole().toString(), nome, entityId));
     }
 
 }

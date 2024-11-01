@@ -19,8 +19,6 @@ public class LoginServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("Retornando username para login/LoginService.");
         return repository.findByLogin(username);
-
-
     }
 
 }
