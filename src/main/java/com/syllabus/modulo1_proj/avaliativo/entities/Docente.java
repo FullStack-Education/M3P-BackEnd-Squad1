@@ -1,5 +1,6 @@
 package com.syllabus.modulo1_proj.avaliativo.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
 @AllArgsConstructor
 @Entity

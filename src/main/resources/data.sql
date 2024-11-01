@@ -52,17 +52,14 @@ VALUES ('Turma 02', 1, 1, 2);
 INSERT INTO turmas (nome , curso_id , professor_id, materia_id)
 VALUES ('Turma 03', 2, 2, 3);
 
-INSERT INTO alunos (nome, data_nascimento, cep, complemento, referencia, numero, rg, telefone, naturalidade, cpf, estado_civil, email, genero, turma_id , usuario_id)
-VALUES ('Sergio Malandro', '1980-10-10', '88040030', 'casa', 'rua da padaria', '160', '8888888', '(48)9 7777-2221', 'Florianópolis', '000.000.000-00', 'Solteiro(a)', 'sergio@aluno.com', 'Masculino', 1, 2);
+INSERT INTO alunos (nome, data_nascimento, cep, estado, bairro, logradouro, cidade, complemento, referencia, numero, rg, telefone, naturalidade, cpf, estado_civil, email, genero, turma_id , usuario_id)
+VALUES ('Sergio Malandro', '1990-10-10', '88040030', 'SC', 'Pantanal', 'Rua José Bernardes Vieira', 'Florianopolis','casa', 'rua do mercado','1212', '77777777', '(48)9 9999-9999', 'Florianópolis', '000.000.000-00', 'Solteiro(a)', 'sergio@aluno.com', 'Masculino', 1, 2);
 
-INSERT INTO alunos (nome, data_nascimento, cep, complemento, referencia, numero, rg, telefone, naturalidade, cpf, estado_civil, email, genero, turma_id , usuario_id)
-VALUES ('Maurício de Souza', '1990-10-10', '88040030', 'casa', 'rua do mercado','150', '99999999', '(48)9 9999-9999', 'Florianópolis', '000.000.000-00', 'Casado(a)', 'mauricio@aluno.com', 'Masculino', 1, 4);
+INSERT INTO alunos (nome, data_nascimento, cep, estado, bairro, logradouro, cidade, complemento, referencia, numero, rg, telefone, naturalidade, cpf, estado_civil, email, genero, turma_id , usuario_id)
+VALUES ('Maurício de Souza', '1990-10-10', '88040030', 'SC', 'Pantanal', 'Rua José Bernardes Vieira', 'Florianopolis','casa', 'rua do mercado','150', '99999999', '(48)9 9999-9999', 'Florianópolis', '000.000.000-00', 'Casado(a)', 'mauricio@aluno.com', 'Masculino', 1, 4);
 
-INSERT INTO notas (aluno_id , data_nota , docente_id , materia_id, valor)
-VALUES (1, '2024-10-10', 1, 2, 10.0);
-
-INSERT INTO notas (aluno_id , data_nota , docente_id , materia_id, valor)
-VALUES (1, '2024-10-10', 1, 2, 9.0);
-
-INSERT INTO notas (aluno_id , data_nota , docente_id , materia_id, valor)
-VALUES (1, '2024-10-10', 1, 2, 9.5);
+--INSERT INTO notas (aluno_id , data_nota , docente_id , materia_id, valor)
+--VALUES (1, '2024-10-10', 1, 2, 10.0);
+--
+--INSERT INTO notas (aluno_id , data_nota , docente_id , materia_id, valor)
+--VALUES (1, '2024-10-10', 1, 2, 9.0);

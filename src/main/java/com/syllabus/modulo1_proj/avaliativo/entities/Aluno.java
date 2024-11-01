@@ -1,5 +1,6 @@
 package com.syllabus.modulo1_proj.avaliativo.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
@@ -7,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @AllArgsConstructor
 @Entity
 @Table(name = "alunos")
@@ -22,7 +24,6 @@ public class Aluno implements Serializable {
 
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
-
     private String genero;
     private String cpf;
     private String rg;
@@ -31,6 +32,10 @@ public class Aluno implements Serializable {
     private String email;
     private String naturalidade;
     private String cep;
+    private String cidade;
+    private String estado;
+    private String logradouro;
+    private String bairro;
     private String numero;
     private String referencia;
     private String complemento;
@@ -40,8 +45,8 @@ public class Aluno implements Serializable {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "turma_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "turma_id")
     private Turma turma;
 
 
@@ -179,5 +184,37 @@ public class Aluno implements Serializable {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 }

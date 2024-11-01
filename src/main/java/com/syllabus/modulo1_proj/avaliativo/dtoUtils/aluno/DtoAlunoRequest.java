@@ -27,8 +27,13 @@ public class DtoAlunoRequest {
     private String email;
     private String naturalidade;
     private String cep;
+    private String cidade;
+    private String estado;
+    private String logradouro;
+    private String bairro;
     private String numero;
-    private Turma turma;
+    private String referencia;
+    private String complemento;
 
     @NotNull
     @Min(value = 0, message = "Código de Turma inválido.")
@@ -146,11 +151,51 @@ public class DtoAlunoRequest {
         this.numero = numero;
     }
 
-    public Turma getTurma() {
-        return turma;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setTurma(Turma turma) {
-        this.turma = turma;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 }

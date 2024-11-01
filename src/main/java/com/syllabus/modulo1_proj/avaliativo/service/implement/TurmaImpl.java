@@ -37,12 +37,12 @@ public class TurmaImpl implements TurmaService {
     @Override
     @Transactional
     public DtoTurmaResponse criarTurma(DtoTurma turma) {
-//        if (!cursoRepo.existsById(turma.getCurso_id())) {
-//            logger.error("É necessário um Curso válido para se cadastrar uma Turma.");
-//            throw new ResponseStatusException(
-//                    HttpStatus.NOT_FOUND, "É necessário um Curso válido para se cadastrar uma Turma."
-//            );
-//        }
+        if (!cursoRepo.existsById(turma.getCurso_id())) {
+            logger.error("É necessário um Curso válido para se cadastrar uma Turma.");
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "É necessário um Curso válido para se cadastrar uma Turma."
+            );
+        }
 
         if (!docenteRepo.existsById(turma.getDocente_id())) {
             logger.error("É necessário um Docente cadastrado para a Turma.");

@@ -1,4 +1,5 @@
 package com.syllabus.modulo1_proj.avaliativo.dtoUtils.aluno;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.syllabus.modulo1_proj.avaliativo.entities.Aluno;
 import com.syllabus.modulo1_proj.avaliativo.entities.Turma;
 import jakarta.validation.constraints.NotBlank;
@@ -7,13 +8,14 @@ import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@AllArgsConstructor
 public class DtoAlunoResponse {
 
     private String nome;
     private Long id;
 
+    private LocalDate dataNascimento;
     private String genero;
-    private LocalDate nascimento;
     private String cpf;
     private String rg;
     private String estadoCivil;
@@ -21,10 +23,14 @@ public class DtoAlunoResponse {
     private String email;
     private String naturalidade;
     private String cep;
+    private String cidade;
+    private String estado;
+    private String logradouro;
+    private String bairro;
     private String numero;
-    private Turma turma;
-    private String complemento;
     private String referencia;
+    private String complemento;
+    private Turma turma;
 
 
     public DtoAlunoResponse(){}
@@ -42,13 +48,18 @@ public class DtoAlunoResponse {
         this.numero = aluno.getNumero();
         this.email = aluno.getEmail();
         this.genero = aluno.getGenero();
-        this.nascimento = aluno.getDataNascimento();
+        this.dataNascimento = aluno.getDataNascimento();
         this.estadoCivil = aluno.getEstadoCivil();
         this.naturalidade = aluno.getNaturalidade();
         this.turma = aluno.getTurma();
         this.telefone = aluno.getTelefone();
         this.complemento = aluno.getComplemento();
         this.referencia = aluno.getReferencia();
+        this.cidade = aluno.getCidade();
+        this.logradouro = aluno.getLogradouro();
+        this.estado = aluno.getEstado();
+        this.bairro = aluno.getBairro();
+
     }
 
     public String getNome() {
@@ -76,11 +87,11 @@ public class DtoAlunoResponse {
     }
 
     public LocalDate getNascimento() {
-        return nascimento;
+        return dataNascimento;
     }
 
     public void setNascimento(LocalDate nascimento) {
-        this.nascimento = nascimento;
+        this.dataNascimento = nascimento;
     }
 
     public String getCpf() {
@@ -147,14 +158,6 @@ public class DtoAlunoResponse {
         this.numero = numero;
     }
 
-    public Turma getTurma() {
-        return turma;
-    }
-
-    public void setTurma(Turma turma) {
-        this.turma = turma;
-    }
-
     public String getComplemento() {
         return complemento;
     }
@@ -169,5 +172,53 @@ public class DtoAlunoResponse {
 
     public void setReferencia(String referencia) {
         this.referencia = referencia;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 }

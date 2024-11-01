@@ -1,10 +1,13 @@
 package com.syllabus.modulo1_proj.avaliativo.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @AllArgsConstructor
 @Entity
 @Table(name = "turmas")
@@ -18,7 +21,7 @@ public class Turma implements Serializable  {
     @Column(name = "nome", length = 150, nullable = false)
     private String nome;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "professor_id")
     private Docente docente;
 
@@ -29,8 +32,9 @@ public class Turma implements Serializable  {
     private LocalDate dataInicio;
     private LocalDate dataTermino;
 
-    @ManyToOne
-    private  Materia materia;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Materia materia;
 
 
     public Turma(){}
