@@ -41,15 +41,16 @@ public class CursoImpl implements CursoService {
     }
 
     @Override
-    public List<Curso> listarCursos(){
-        if (repository.findAll().isEmpty()) {
+    public List<Curso> listarCursos() {
+        List<Curso> cursos = repository.findAll(); // Chamada única
+        if (cursos.isEmpty()) {
             logger.error("Lista vazia. Não há cursos cadastrados.");
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Não há cursos cadastrados."
             );
         }
         logger.info("Retornando listagem completa de cursos cadastrados.");
-        return repository.findAll();
+        return cursos;
     }
 
     @Override

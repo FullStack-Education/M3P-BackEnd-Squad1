@@ -86,14 +86,10 @@ public class AlunoImpl implements AlunoService {
 
     @Override
     public DtoAlunoResponse atualizarAluno(Long id, DtoAlunoRequest aluno) {
-        if (!repository.existsById(id)) {
-            logger.error("Aluno não encontrado para alteração/PUT, ID {}", id);
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Aluno não encontrado para alteração."
-            );
-        }
+        Aluno atual = repository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado para alteração.")
+        );
 
-        Aluno atual = repository.findById(id).get();
         atual.setNome(aluno.getNome());
         atual.setDataNascimento(aluno.getDataNascimento());
         repository.save(atual);
@@ -109,7 +105,9 @@ public class AlunoImpl implements AlunoService {
                     HttpStatus.NOT_FOUND, "Aluno não encontrado."
             );
         }
-        Aluno atual = repository.findById(id).get();
+        Aluno atual = repository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado para alteração.")
+        );
         repository.delete(atual);
         logger.info("Aluno excluído com sucesso, ID {}", id);
     }
