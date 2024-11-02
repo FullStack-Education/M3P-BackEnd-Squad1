@@ -3,12 +3,10 @@ import com.syllabus.modulo1_proj.avaliativo.dtoUtils.notas.DtoNota;
 import com.syllabus.modulo1_proj.avaliativo.dtoUtils.notas.DtoNotaResponse;
 import com.syllabus.modulo1_proj.avaliativo.entities.Aluno;
 import com.syllabus.modulo1_proj.avaliativo.entities.Nota;
+import com.syllabus.modulo1_proj.avaliativo.entities.Turma;
 import com.syllabus.modulo1_proj.avaliativo.entities.Usuario;
 import com.syllabus.modulo1_proj.avaliativo.entities.enuns.UsuarioPapel;
-import com.syllabus.modulo1_proj.avaliativo.repository.AlunoRepository;
-import com.syllabus.modulo1_proj.avaliativo.repository.DocenteRepository;
-import com.syllabus.modulo1_proj.avaliativo.repository.MateriaRepository;
-import com.syllabus.modulo1_proj.avaliativo.repository.NotasRepository;
+import com.syllabus.modulo1_proj.avaliativo.repository.*;
 import com.syllabus.modulo1_proj.avaliativo.service.NotaService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
@@ -26,15 +24,17 @@ public class NotaImpl implements NotaService {
     private static final Logger logger = LoggerFactory.getLogger(NotaImpl.class);
 
     private final NotasRepository repository;
+    private final TurmaRepository turmaRepositor;
     private final AlunoRepository alunoRepo;
     private final DocenteRepository docenteRepo;
     private final MateriaRepository materiaRepo;
     private final UsuarioImpl usuarioService;
     private final HttpServletRequest request;
-    public NotaImpl(NotasRepository repository, AlunoRepository alunoRepo,
+    public NotaImpl(NotasRepository repository, TurmaRepository turmaRepositor, AlunoRepository alunoRepo,
                     DocenteRepository docenteRepo, MateriaRepository materiaRepo,
                     UsuarioImpl usuarioService1, HttpServletRequest request) {
         this.repository = repository;
+        this.turmaRepositor = turmaRepositor;
         this.alunoRepo = alunoRepo;
         this.docenteRepo = docenteRepo;
         this.materiaRepo = materiaRepo;
@@ -45,7 +45,7 @@ public class NotaImpl implements NotaService {
 
     @Override
     public List<DtoNotaResponse> listarNotasPorAluno(Long alunoId) {
-        if (!repository.existsById(alunoId)) {
+        if (!alunoRepo.existsById(alunoId)) {
             logger.error("Aluno não encontrado para listagem de notas, ID informado: {}", alunoId);
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Aluno não encontrado para listagem de notas.");
@@ -121,9 +121,15 @@ public class NotaImpl implements NotaService {
 
         novaNota.setValor(nota.getValor());
         novaNota.setDataNota(nota.getDataNota());
+        novaNota.setDataTermino(nota.getDataTermino());
+        novaNota.setNomeAvaliacao(nota.getNomeAvaliacao());
+        novaNota.setHorario(nota.getHorario());
+
         novaNota.setAluno(alunoRepo.getById(nota.getAluno_id()));
         novaNota.setDocente(docenteRepo.getById(nota.getDocente_id()));
         novaNota.setMateria(materiaRepo.getById(nota.getMateria_id()));
+        novaNota.setTurma(turmaRepositor.getById(nota.getTurma_id()));
+
         repository.save(novaNota);
         logger.info("Nota cadastrada com sucesso.");
         return new DtoNotaResponse(novaNota);

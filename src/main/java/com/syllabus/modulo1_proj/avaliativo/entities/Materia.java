@@ -1,10 +1,14 @@
 package com.syllabus.modulo1_proj.avaliativo.entities;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.Objects;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "materias")
-public class Materia {
+public class Materia implements Serializable  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,14 +1,15 @@
 package com.syllabus.modulo1_proj.avaliativo.dtoUtils.notas;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+
 import java.time.LocalDate;
 
-
+@AllArgsConstructor
 public class DtoNota {
     @NotNull
     private Double valor;
-
-    private LocalDate dataNota = LocalDate.now();
+    private LocalDate dataNota;
 
     @NotNull
     @Min(value = 0, message = "Código do Aluno inválido.")
@@ -21,6 +22,20 @@ public class DtoNota {
     @NotNull
     @Min(value = 0, message = "Código da Materia inválido.")
     private Long materia_id;
+
+    @NotNull
+    @Min(value = 0, message = "Código da Turma inválido.")
+    private Long turma_id;
+
+    @NotNull
+    private LocalDate dataTermino;
+
+    @NotNull
+    private String horario;
+
+    @NotNull
+    private String nomeAvaliacao;
+
 
     public DtoNota(){}
     public DtoNota(Double valor, LocalDate dataNota, Long aluno_id, Long docente_id, Long materia_id) {
@@ -69,5 +84,37 @@ public class DtoNota {
 
     public void setMateria_id(Long materia_id) {
         this.materia_id = materia_id;
+    }
+
+    public Long getTurma_id() {
+        return turma_id;
+    }
+
+    public void setTurma_id(Long turma_id) {
+        this.turma_id = turma_id;
+    }
+
+    public String getNomeAvaliacao() {
+        return nomeAvaliacao;
+    }
+
+    public void setNomeAvaliacao(String nomeAvaliacao) {
+        this.nomeAvaliacao = nomeAvaliacao;
+    }
+
+    public LocalDate getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(LocalDate dataTermino) {
+        this.dataTermino = dataTermino;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 }

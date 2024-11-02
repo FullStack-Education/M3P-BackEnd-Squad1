@@ -2,8 +2,11 @@ package com.syllabus.modulo1_proj.avaliativo.dtoUtils.turma;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 
+import java.time.LocalDate;
 
+@AllArgsConstructor
 public class DtoTurma {
     @NotBlank
     private String nome;
@@ -12,9 +15,11 @@ public class DtoTurma {
     @Min(value = 0, message = "Código do curso não pode ser inferior a 1.")
     private Long docente_id;
 
-    @NotNull
-    @Min(value = 0, message = "Código do curso não pode ser inferior a 1.")
     private Long curso_id;
+
+    private LocalDate dataInicio;
+    private LocalDate dataTermino;
+    private Long materia_id;
 
 
     public DtoTurma(){}
@@ -50,5 +55,29 @@ public class DtoTurma {
 
     public void setCurso_id(Long curso_id) {
         this.curso_id = curso_id;
+    }
+
+    public LocalDate getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(LocalDate dataTermino) {
+        this.dataTermino = dataTermino;
+    }
+
+    public Long getMateria_id() {
+        return materia_id;
+    }
+
+    public void setMateria_id(Long materia_id) {
+        this.materia_id = materia_id;
     }
 }

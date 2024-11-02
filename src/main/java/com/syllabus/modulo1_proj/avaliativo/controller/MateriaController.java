@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = { "http://localhost:4200", "http://localhost:4200", "https://viacep.com.br/ws/null/json/"})
 @RestController
 @RequestMapping("materias")
 public class MateriaController {
@@ -34,6 +35,12 @@ public class MateriaController {
     public ResponseEntity<Materia> obterMateriaPorId(@PathVariable Long id) {
         logger.info("Solicitada Matéria por ID, {}", id);
         return ResponseEntity.status(HttpStatus.OK).body(service.obterMateriaPorId(id));
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<Materia>> listarTodasMaterias() {
+        logger.info("Solicitada listagem de materias");
+        return ResponseEntity.status(HttpStatus.OK).body(service.listarTodasMaterias());
     }
 
     @PutMapping("{id}")

@@ -1,9 +1,11 @@
 package com.syllabus.modulo1_proj.avaliativo.entities;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name ="papeis")
-public class Papel {
+public class Papel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -33,27 +33,29 @@ public class SecConfig {
 
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
 
                         .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/cadastro").hasRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.POST, "/turmas", "/cursos", "/alunos", "/materias").hasRole("PEDAGOGICO")
-                        .requestMatchers(HttpMethod.GET, "/turmas", "/turmas/*", "/cursos", "/cursos/*", "/alunos","/alunos/*", "/materias", "/materias/*").hasRole("PEDAGOGICO")
-                        .requestMatchers(HttpMethod.PUT, "/turmas/*", "/cursos/*", "/alunos/*", "/materias/*").hasRole("PEDAGOGICO")
+                        .requestMatchers(HttpMethod.POST, "/turmas", "/cursos", "/alunos", "/materias").hasRole("PROFESSOR")
+                        .requestMatchers(HttpMethod.GET, "/turmas", "/turmas/*", "/cursos", "/cursos/*", "/alunos","/alunos/*", "/materias", "/materias/*").hasRole("PROFESSOR")
+                        .requestMatchers(HttpMethod.PUT, "/turmas/*", "/cursos/*", "/alunos/*", "/materias/*").hasRole("PROFESSOR")
 
                         .requestMatchers(HttpMethod.POST, "/notas").hasRole("PROFESSOR")
                         .requestMatchers(HttpMethod.GET, "/notas", "/notas/*").hasRole("PROFESSOR")
                         .requestMatchers(HttpMethod.PUT, "/notas/*").hasRole("PROFESSOR")
 
-                        .requestMatchers(HttpMethod.POST, "/docentes").hasRole("RECRUITER")
-                        .requestMatchers(HttpMethod.GET, "/docentes", "/docentes/*").hasRole("RECRUITER")
-                        .requestMatchers(HttpMethod.PUT, "/docentes/*").hasRole("RECRUITER")
+                        .requestMatchers(HttpMethod.POST, "/docentes").hasRole("PROFESSOR")
+                        .requestMatchers(HttpMethod.GET, "/docentes", "/docentes/*").hasRole("PROFESSOR")
+                        .requestMatchers(HttpMethod.PUT, "/docentes/*").hasRole("PROFESSOR")
 
                         .requestMatchers(HttpMethod.GET, "/alunos/**").hasRole("ALUNO")
 
                         .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
+
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(filtroSegurança, UsernamePasswordAuthenticationFilter.class)
                 .build();

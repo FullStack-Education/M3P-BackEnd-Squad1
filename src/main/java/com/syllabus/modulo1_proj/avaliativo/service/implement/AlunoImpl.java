@@ -64,8 +64,26 @@ public class AlunoImpl implements AlunoService {
 
         novoAluno.setNome(aluno.getNome());
         novoAluno.setDataNascimento(aluno.getDataNascimento());
-        novoAluno.setUsuario(usuarioRepo.getById(aluno.getUsuario_id()));
+        novoAluno.setCpf(aluno.getCpf());
+        novoAluno.setRg(aluno.getRg());
+        novoAluno.setEmail(aluno.getEmail());
+        novoAluno.setEstadoCivil(aluno.getEstadoCivil());
+        novoAluno.setTelefone(aluno.getTelefone());
+        novoAluno.setGenero(aluno.getGenero());
+        novoAluno.setNaturalidade(aluno.getNaturalidade());
+        novoAluno.setBairro(aluno.getBairro());
+        novoAluno.setCidade(aluno.getCidade());
+        novoAluno.setEstado(aluno.getEstado());
+        novoAluno.setNumero(aluno.getNumero());
+        novoAluno.setLogradouro(aluno.getLogradouro());
+        novoAluno.setCep(aluno.getCep());
+        novoAluno.setReferencia(aluno.getReferencia());
+        novoAluno.setComplemento(aluno.getComplemento());
+        novoAluno.setComplemento(aluno.getComplemento());
+
         novoAluno.setTurma(turmaRepo.getById(aluno.getTurma_id()));
+        novoAluno.setUsuario(usuarioRepo.getById(aluno.getUsuario_id()));
+
         repository.save(novoAluno);
         logger.info("Novo Aluno cadastrado com sucesso.");
 

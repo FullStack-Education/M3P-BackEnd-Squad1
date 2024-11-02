@@ -1,10 +1,18 @@
 package com.syllabus.modulo1_proj.avaliativo.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "notas")
-public class Nota {
+public class Nota implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,8 +22,14 @@ public class Nota {
     @Column(name = "valor")
     private Double valor;
 
-    @Column(name = "data")
+    @Column(name = "data_nota")
     private LocalDate dataNota;
+
+    private LocalDate dataTermino;
+
+    @Column(name = "nome_avaliacao")
+    private String nomeAvaliacao;
+    private String horario;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "aluno_id", nullable = false)
@@ -28,6 +42,9 @@ public class Nota {
     @ManyToOne(optional = false)
     @JoinColumn(name = "materia_id", nullable = false)
     private Materia materia;
+
+    @ManyToOne
+    private Turma turma;
 
 
     public Nota(){}
@@ -87,4 +104,38 @@ public class Nota {
     public void setMateria(Materia materia) {
         this.materia = materia;
     }
+
+    public LocalDate getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(LocalDate dataTermino) {
+        this.dataTermino = dataTermino;
+    }
+
+    public String getNomeAvaliacao() {
+        return nomeAvaliacao;
+    }
+
+    public void setNomeAvaliacao(String nomeAvaliacao) {
+        this.nomeAvaliacao = nomeAvaliacao;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+
 }

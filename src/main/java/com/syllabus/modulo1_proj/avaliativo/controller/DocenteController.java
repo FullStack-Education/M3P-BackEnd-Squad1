@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@CrossOrigin(origins = { "http://localhost:4200", "http://localhost:4200", "https://viacep.com.br/ws/null/json/"})
 @RestController
 @RequestMapping("docentes")
 public class DocenteController {

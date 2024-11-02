@@ -37,7 +37,24 @@ public class DocenteImpl implements DocenteService {
         Docente novoDocente = new Docente();
 
         novoDocente.setNome(docente.getNome());
-        novoDocente.setDataEntrada(LocalDate.now());
+        novoDocente.setNascimento(docente.getNascimento());
+        novoDocente.setCpf(docente.getCpf());
+        novoDocente.setRg(docente.getRg());
+        novoDocente.setEmail(docente.getEmail());
+        novoDocente.setEstadoCivil(docente.getEstadoCivil());
+        novoDocente.setTelefone(docente.getTelefone());
+        novoDocente.setGenero(docente.getGenero());
+        novoDocente.setNaturalidade(docente.getNaturalidade());
+        novoDocente.setBairro(docente.getBairro());
+        novoDocente.setCidade(docente.getCidade());
+        novoDocente.setEstado(docente.getEstado());
+        novoDocente.setLogradouro(docente.getLogradouro());
+        novoDocente.setCep(docente.getCep());
+        novoDocente.setReferencia(docente.getReferencia());
+        novoDocente.setMaterias(docente.getMaterias());
+        novoDocente.setComplemento(docente.getComplemento());
+        novoDocente.setComplemento(docente.getComplemento());
+
         novoDocente.setUsuario(usuarioRepo.getById(docente.getUsuario_id()));
 
         repository.save(novoDocente);
@@ -68,7 +85,6 @@ public class DocenteImpl implements DocenteService {
 
         Docente atual = repository.findById(id).get();
         atual.setNome(docente.getNome());
-        atual.setDataEntrada(LocalDate.now());
         repository.save(atual);
         logger.info("Docente editado com sucesso, ID {}", id);
 
