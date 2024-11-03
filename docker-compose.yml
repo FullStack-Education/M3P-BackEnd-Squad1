@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
     networks:
-      - minha-rede
+      - rede_ava
 
   projeto_ava:
     build:
@@ -21,9 +21,11 @@ services:
       - PORT=5432
     depends_on:
       - postgres
+    ports:
+      - 8080:8080
     networks:
-      - minha-rede
+      - rede_ava
 
 networks:
-  minha-rede:
+  rede_ava:
     driver: bridge

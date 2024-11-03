@@ -42,6 +42,7 @@ public class Docente implements Serializable {
     private String numero;
     private String referencia;
     private String complemento;
+    private LocalDate dataEntrada;
     private ArrayList<String> materias;
 
     @OneToOne
@@ -50,7 +51,7 @@ public class Docente implements Serializable {
     private Usuario usuario;
 
     public Docente(){}
-    public Docente(Long id, String login, LocalDate dataEntrada, Papel papel) {
+    public Docente(Long id, String login, Papel papel) {
         this.id = id;
         this.nome = login;
     }
@@ -213,5 +214,13 @@ public class Docente implements Serializable {
 
     public void setBairro(String bairro) {
         this.bairro = bairro;
+    }
+
+    public LocalDate getDataEntrada() {
+        return dataEntrada;
+    }
+
+    public void setDataEntrada(LocalDate dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 }
