@@ -37,6 +37,7 @@ public class SecConfig {
 
                         .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/cadastro").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/dashboard").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.POST, "/turmas", "/cursos", "/alunos", "/materias").hasRole("PROFESSOR")
                         .requestMatchers(HttpMethod.GET, "/turmas", "/turmas/*", "/cursos/*", "/alunos","/alunos/*", "/materias", "/materias/*").hasRole("PROFESSOR")
