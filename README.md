@@ -224,7 +224,9 @@ Retorna a pontuação total de um aluno, indicado pelo ID, conforme a métrica s
 ## Autores
 
 David Alves Dutra
+
 Barbara Calderon
+
 Luís Pedro Trindade
 
 
