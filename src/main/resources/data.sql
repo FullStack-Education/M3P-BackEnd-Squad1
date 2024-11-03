@@ -16,6 +16,12 @@ VALUES ('Curso A');
 INSERT INTO cursos (nome)
 VALUES ('Curso B');
 
+INSERT INTO cursos (nome)
+VALUES ('Curso C');
+
+INSERT INTO cursos (nome)
+VALUES ('Curso D');
+
 INSERT INTO usuarios (login, senha, role, papel_id)
 VALUES ('admin', '$2a$12$XOOpwCeFKNnelqXt/mfF4e2bUfZbOLns0P2oHy8R.OrgedboiWyU.', 0, 1);
 
@@ -59,13 +65,13 @@ INSERT INTO alunos (nome, data_nascimento, cep, estado, bairro, logradouro, cida
 VALUES ('Maurício de Souza', '1990-10-10', '88040030', 'SC', 'Pantanal', 'Rua José Bernardes Vieira', 'Florianopolis','casa', 'rua do mercado','150', '99999999', '(48)9 9999-9999', 'Florianópolis', '000.000.000-00', 'Casado(a)', 'mauricio@aluno.com', 'Masculino', 1, 4);
 
 INSERT INTO notas (aluno_id , data_nota , docente_id , materia_id, valor, data_termino, horario, nome_avaliacao, turma_id)
-VALUES (1, '2024-10-10', 1, 2, 9.0, '2024-10-10', '08:20', 'Prova 1', 1);
+VALUES (1, '2024-09-07', 1, 1, 9.0, '2024-10-10', '08:20', 'Prova 1', 1);
 
 INSERT INTO notas (aluno_id , data_nota , docente_id , materia_id, valor, data_termino, horario, nome_avaliacao, turma_id)
-VALUES (1, '2024-10-10', 1, 2, 9.0, '2024-10-10', '08:20', 'Prova 2', 1);
+VALUES (1, '2024-10-15', 1, 2, 9.0, '2024-10-10', '08:20', 'Prova 2', 1);
 
 INSERT INTO notas (aluno_id , data_nota , docente_id , materia_id, valor, data_termino, horario, nome_avaliacao, turma_id)
-VALUES (1, '2024-10-10', 1, 2, 9.0, '2024-10-10', '08:20', 'Trabalho 1', 1);
+VALUES (1, '2024-10-20', 1, 1, 9.0, '2024-10-10', '08:20', 'Trabalho 1', 1);
 
 INSERT INTO notas (aluno_id , data_nota , docente_id , materia_id, valor, data_termino, horario, nome_avaliacao, turma_id)
 VALUES (2, '2024-10-10', 1, 2, 9.0, '2024-10-10', '08:20', 'Prova 1', 1);
