@@ -6,19 +6,22 @@ import com.syllabus.modulo1_proj.avaliativo.repository.AlunoRepository;
 import com.syllabus.modulo1_proj.avaliativo.repository.DocenteRepository;
 import com.syllabus.modulo1_proj.avaliativo.repository.UsuarioRepository;
 import com.syllabus.modulo1_proj.avaliativo.security.TokenService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = { "http://localhost:4200", "http://localhost:4200", "https://viacep.com.br/ws/null/json/"})
+@CrossOrigin(origins = { "http://localhost:4200", "https://viacep.com.br/ws/null/json/"})
 @RestController
 @RequestMapping("login")
+@Api(value = "LoginController", tags = {"Login"})
 public class LoginController {
 
     private final HttpServletRequest request;
@@ -40,7 +43,9 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity login(@RequestBody @Valid LoginDtoRequest login){
+    @ApiOperation(value = "Realizar login", response = DtoTokenResponse.class)
+    public ResponseEntity login(
+            @ApiParam(value = "Dados de login", required = true) @RequestBody @Valid LoginDtoRequest login) {
         logger.info("Realizada requisição de login.");
         var usernamePassword = new UsernamePasswordAuthenticationToken(login.getLogin(), login.getSenha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
@@ -51,11 +56,10 @@ public class LoginController {
         String nome;
         String entityId = "root";
 
-        if (((Usuario) auth.getPrincipal()).getRole().toString() == "ALUNO") {
+        if (((Usuario) auth.getPrincipal()).getRole().toString().equals("ALUNO")) {
             nome = alunoRepository.buscarLogado(usuarioId).getNome();
             entityId = alunoRepository.buscarLogado(usuarioId).getId().toString();
-        }
-        else if (((Usuario) auth.getPrincipal()).getRole().toString() == "PROFESSOR") {
+        } else if (((Usuario) auth.getPrincipal()).getRole().toString().equals("PROFESSOR")) {
             nome = docenteRepository.buscarLogado(usuarioId).getNome();
             entityId = docenteRepository.buscarLogado(usuarioId).getId().toString();
         } else {
@@ -64,5 +68,4 @@ public class LoginController {
 
         return ResponseEntity.ok(new DtoTokenResponse(token, ((Usuario) auth.getPrincipal()).getRole().toString(), nome, entityId));
     }
-
 }
