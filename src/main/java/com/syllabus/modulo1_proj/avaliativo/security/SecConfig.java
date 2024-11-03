@@ -37,9 +37,10 @@ public class SecConfig {
 
                         .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/cadastro").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/dashboard").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.POST, "/turmas", "/cursos", "/alunos", "/materias").hasRole("PROFESSOR")
-                        .requestMatchers(HttpMethod.GET, "/turmas", "/turmas/*", "/cursos", "/cursos/*", "/alunos","/alunos/*", "/materias", "/materias/*").hasRole("PROFESSOR")
+                        .requestMatchers(HttpMethod.GET, "/turmas", "/turmas/*", "/cursos/*", "/alunos","/alunos/*", "/materias", "/materias/*").hasRole("PROFESSOR")
                         .requestMatchers(HttpMethod.PUT, "/turmas/*", "/cursos/*", "/alunos/*", "/materias/*").hasRole("PROFESSOR")
 
                         .requestMatchers(HttpMethod.POST, "/notas").hasRole("PROFESSOR")
@@ -50,7 +51,7 @@ public class SecConfig {
                         .requestMatchers(HttpMethod.GET, "/docentes", "/docentes/*").hasRole("PROFESSOR")
                         .requestMatchers(HttpMethod.PUT, "/docentes/*").hasRole("PROFESSOR")
 
-                        .requestMatchers(HttpMethod.GET, "/alunos/**").hasRole("ALUNO")
+                        .requestMatchers(HttpMethod.GET, "/alunos/**", "/cursos").hasRole("ALUNO")
 
                         .anyRequest().authenticated()
                 )
