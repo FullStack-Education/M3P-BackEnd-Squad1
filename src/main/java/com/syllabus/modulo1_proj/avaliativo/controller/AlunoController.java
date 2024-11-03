@@ -5,9 +5,11 @@ import com.syllabus.modulo1_proj.avaliativo.dtoUtils.aluno.DtoAlunoResponse;
 import com.syllabus.modulo1_proj.avaliativo.dtoUtils.notas.DtoNotaResponse;
 import com.syllabus.modulo1_proj.avaliativo.service.AlunoService;
 import com.syllabus.modulo1_proj.avaliativo.service.NotaService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -17,10 +19,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@Api(value = "Aluno Controller", tags = {"Aluno"})
+
 @RestController
 @RequestMapping("/alunos")
+@Tag(name = "Alunos", description = "Endpoints para gerenciamento de alunos")
 public class AlunoController {
+
+    //SWAGGER >>> http://localhost:8080/swagger-ui.html
 
     private static final Logger logger = LoggerFactory.getLogger(AlunoController.class);
     private final AlunoService service;
@@ -31,59 +36,79 @@ public class AlunoController {
         this.notaService = notaService;
     }
 
-    @ApiOperation(value = "Criar um novo aluno", response = DtoAlunoResponse.class)
+    @Operation(summary = "Criar novo aluno", description = "Cadastra um novo aluno no sistema", responses = {
+            @ApiResponse(responseCode = "201", description = "Aluno criado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoAlunoResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @PostMapping
-    public ResponseEntity<DtoAlunoResponse> criarAluno(
-            @ApiParam(value = "Dados do novo aluno", required = true) @RequestBody @Valid DtoAlunoRequest novoAluno) {
+    public ResponseEntity<DtoAlunoResponse> criarAluno(@RequestBody @Valid DtoAlunoRequest novoAluno) {
         logger.info("Solicitado o cadastramento de novo Aluno.");
         return ResponseEntity.status(HttpServletResponse.SC_CREATED).body(service.criarAluno(novoAluno));
     }
 
-    @ApiOperation(value = "Obter aluno por ID", response = DtoAlunoResponse.class)
+    @Operation(summary = "Obter aluno por ID", description = "Retorna os dados de um aluno pelo ID", responses = {
+            @ApiResponse(responseCode = "200", description = "Dados do aluno retornados com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoAlunoResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @GetMapping("{id}")
-    public ResponseEntity<DtoAlunoResponse> obterAlunoPorId(
-            @ApiParam(value = "ID do aluno", required = true) @PathVariable Long id) {
+    public ResponseEntity<DtoAlunoResponse> obterAlunoPorId(@PathVariable Long id) {
         logger.info("Solicitado dados do Aluno de ID {}.", id);
         return ResponseEntity.status(HttpStatus.OK).body(service.obterAlunoPorId(id));
     }
 
-    @ApiOperation(value = "Atualizar aluno por ID", response = DtoAlunoResponse.class)
+    @Operation(summary = "Atualizar aluno", description = "Atualiza os dados de um aluno pelo ID", responses = {
+            @ApiResponse(responseCode = "200", description = "Aluno atualizado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoAlunoResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @PutMapping("{id}")
-    public ResponseEntity<DtoAlunoResponse> atualizarAluno(
-            @ApiParam(value = "ID do aluno", required = true) @PathVariable Long id,
-            @ApiParam(value = "Dados atualizados do aluno", required = true) @RequestBody @Valid DtoAlunoRequest aluno) {
+    public ResponseEntity<DtoAlunoResponse> atualizarAluno(@PathVariable Long id, @RequestBody @Valid DtoAlunoRequest aluno) {
         logger.info("Solicitada alteração cadastral (PUT), Aluno ID {}.", id);
         return ResponseEntity.status(HttpStatus.OK).body(service.atualizarAluno(id, aluno));
     }
 
-    @ApiOperation(value = "Deletar aluno por ID")
+    @Operation(summary = "Deletar aluno", description = "Deleta um aluno pelo ID", responses = {
+            @ApiResponse(responseCode = "204", description = "Aluno deletado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deletarAluno(
-            @ApiParam(value = "ID do aluno", required = true) @PathVariable Long id) {
+    public ResponseEntity<Void> deletarAluno(@PathVariable Long id) {
         logger.info("Solicitada exclusão de Aluno (DELETE), ID {}.", id);
         service.deletarAluno(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    @ApiOperation(value = "Listar todos os alunos", response = DtoAlunoResponse.class, responseContainer = "List")
+    @Operation(summary = "Listar todos os alunos", description = "Retorna uma lista de todos os alunos cadastrados", responses = {
+            @ApiResponse(responseCode = "200", description = "Lista de alunos retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoAlunoResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @GetMapping
     public ResponseEntity<List<DtoAlunoResponse>> listarTodosAlunos() {
         logger.info("Solicitada listagem completa de alunos cadastrados no sistema.");
         return ResponseEntity.status(HttpStatus.OK).body(service.listarTodosAlunos());
     }
 
-    @ApiOperation(value = "Listar notas por aluno", response = DtoNotaResponse.class, responseContainer = "List")
+    @Operation(summary = "Listar notas por aluno", description = "Retorna uma lista de notas de um aluno pelo ID", responses = {
+            @ApiResponse(responseCode = "200", description = "Lista de notas retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoNotaResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @GetMapping("{id_aluno}/notas")
-    public ResponseEntity<List<DtoNotaResponse>> listarNotasPorAluno(
-            @ApiParam(value = "ID do aluno", required = true) @PathVariable Long id_aluno) {
+    public ResponseEntity<List<DtoNotaResponse>> listarNotasPorAluno(@PathVariable Long id_aluno) {
         logger.info("Solicitada listagem completa de Notas de Aluno, cadastro ID {}.", id_aluno);
         return ResponseEntity.status(HttpStatus.OK).body(notaService.listarNotasPorAluno(id_aluno));
     }
 
-    @ApiOperation(value = "Obter pontuação total do aluno", response = DtoNotaFinal.class)
+    @Operation(summary = "Obter pontuação total do aluno", description = "Retorna a pontuação total de um aluno pelo ID", responses = {
+            @ApiResponse(responseCode = "200", description = "Pontuação retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoNotaFinal.class))),
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @GetMapping("{id}/pontuacao")
-    public ResponseEntity<DtoNotaFinal> pontuacaoAluno(
-            @ApiParam(value = "ID do aluno", required = true) @PathVariable Long id) {
+    public ResponseEntity<DtoNotaFinal> pontuacaoAluno(@PathVariable Long id) {
         logger.info("Solicitada a pontuação TOTAL do Aluno, cadastro ID {}.", id);
         return ResponseEntity.status(HttpStatus.OK).body(service.pontuacaoAluno(id));
     }

@@ -6,9 +6,11 @@ import com.syllabus.modulo1_proj.avaliativo.repository.AlunoRepository;
 import com.syllabus.modulo1_proj.avaliativo.repository.DocenteRepository;
 import com.syllabus.modulo1_proj.avaliativo.repository.UsuarioRepository;
 import com.syllabus.modulo1_proj.avaliativo.security.TokenService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = { "http://localhost:4200", "https://viacep.com.br/ws/null/json/"})
 @RestController
 @RequestMapping("login")
-@Api(value = "LoginController", tags = {"Login"})
+@Tag(name = "Login", description = "Endpoints para autenticação de usuários")
 public class LoginController {
 
     private final HttpServletRequest request;
@@ -42,10 +44,14 @@ public class LoginController {
         this.docenteRepository = docenteRepository;
     }
 
+    @Operation(summary = "Realizar login", description = "Autentica um usuário no sistema", responses = {
+            @ApiResponse(responseCode = "200", description = "Login realizado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoTokenResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
+            @ApiResponse(responseCode = "401", description = "Credenciais inválidas"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @PostMapping
-    @ApiOperation(value = "Realizar login", response = DtoTokenResponse.class)
-    public ResponseEntity login(
-            @ApiParam(value = "Dados de login", required = true) @RequestBody @Valid LoginDtoRequest login) {
+    public ResponseEntity<DtoTokenResponse> login(@RequestBody @Valid LoginDtoRequest login) {
         logger.info("Realizada requisição de login.");
         var usernamePassword = new UsernamePasswordAuthenticationToken(login.getLogin(), login.getSenha());
         var auth = this.authenticationManager.authenticate(usernamePassword);

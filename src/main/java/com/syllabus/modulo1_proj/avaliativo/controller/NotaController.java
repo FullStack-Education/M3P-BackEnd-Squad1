@@ -2,8 +2,11 @@ package com.syllabus.modulo1_proj.avaliativo.controller;
 import com.syllabus.modulo1_proj.avaliativo.dtoUtils.notas.DtoNota;
 import com.syllabus.modulo1_proj.avaliativo.dtoUtils.notas.DtoNotaResponse;
 import com.syllabus.modulo1_proj.avaliativo.service.NotaService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -12,47 +15,60 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @CrossOrigin(origins = { "http://localhost:4200", "https://viacep.com.br/ws/null/json/"})
 @RestController
 @RequestMapping("notas")
-@Api(value = "Notas", tags = "Notas")
+@Tag(name = "Notas", description = "Endpoints para gerenciamento de notas")
 public class NotaController {
 
     private static final Logger logger = LoggerFactory.getLogger(NotaController.class);
-
     private final NotaService service;
 
     public NotaController(NotaService service) {
         this.service = service;
     }
 
+    @Operation(summary = "Criar nova nota", description = "Cadastra uma nova nota no sistema", responses = {
+            @ApiResponse(responseCode = "201", description = "Nota criada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoNotaResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @PostMapping
-    @ApiOperation(value = "Criar uma nova nota")
     public ResponseEntity<DtoNotaResponse> criarNota(@RequestBody @Valid DtoNota novaNota) {
-        logger.info("Soliciada inserção de nova Nota.");
+        logger.info("Solicitada inserção de nova Nota.");
         return ResponseEntity.status(HttpServletResponse.SC_CREATED).body(service.criarNota(novaNota));
     }
 
+    @Operation(summary = "Obter nota por ID", description = "Retorna os dados de uma nota pelo ID", responses = {
+            @ApiResponse(responseCode = "200", description = "Dados da nota retornados com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoNotaResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Nota não encontrada"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @GetMapping("{id}")
-    @ApiOperation(value = "Obter nota por ID")
     public ResponseEntity<DtoNotaResponse> obterNotaPorId(@PathVariable Long id) {
-        logger.info("Soliciada Nota por ID, {}.", id);
+        logger.info("Solicitada Nota por ID, {}.", id);
         return ResponseEntity.status(HttpStatus.OK).body(service.obterNotaPorId(id));
     }
 
+    @Operation(summary = "Atualizar nota", description = "Atualiza os dados de uma nota pelo ID", responses = {
+            @ApiResponse(responseCode = "200", description = "Nota atualizada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoNotaResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Nota não encontrada"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @PutMapping("{id}")
-    @ApiOperation(value = "Atualizar nota por ID")
     public ResponseEntity<DtoNotaResponse> atualizarNota(@PathVariable Long id, @RequestBody @Valid DtoNota nota) {
-        logger.info("Soliciada alteração de Nota, ID {}.", id);
+        logger.info("Solicitada alteração de Nota, ID {}.", id);
         return ResponseEntity.status(HttpStatus.OK).body(service.atualizarNota(id, nota));
     }
 
+    @Operation(summary = "Deletar nota", description = "Deleta uma nota pelo ID", responses = {
+            @ApiResponse(responseCode = "204", description = "Nota deletada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Nota não encontrada"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     @DeleteMapping("{id}")
-    @ApiOperation(value = "Deletar nota por ID")
     public ResponseEntity<Void> deletarNota(@PathVariable Long id) {
-        logger.info("Soliciada exclusão de Nota, ID {}.", id);
+        logger.info("Solicitada exclusão de Nota, ID {}.", id);
         service.deletarNota(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
