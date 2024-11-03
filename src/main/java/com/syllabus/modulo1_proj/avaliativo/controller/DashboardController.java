@@ -2,6 +2,8 @@ package com.syllabus.modulo1_proj.avaliativo.controller;
 
 import com.syllabus.modulo1_proj.avaliativo.dtoUtils.DtoDashBoard;
 import com.syllabus.modulo1_proj.avaliativo.service.DashBoadService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = { "http://localhost:4200", "http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:4200"})
+@Api(value = "Dashboard Controller", tags = {"Dashboard"})
 @RestController
 @RequestMapping("dashboard")
 public class DashboardController {
@@ -23,6 +26,7 @@ public class DashboardController {
         this.dashBoadService = dashBoadService;
     }
 
+    @ApiOperation(value = "Listar estatísticas do dashboard", response = DtoDashBoard.class)
     @GetMapping
     public ResponseEntity<DtoDashBoard> listarCursos() {
         logger.info("Solicitada estatísticas para DashBoard.");
