@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,11 +19,13 @@ public class FiltroSegurança extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(TokenService.class);
 
-    @Autowired
-    TokenService tokenService;
+    private final TokenService tokenService;
+    private final UsuarioRepository userRepository;
 
-    @Autowired
-    UsuarioRepository userRepository;
+    public FiltroSegurança(TokenService tokenService, UsuarioRepository userRepository) {
+        this.tokenService = tokenService;
+        this.userRepository = userRepository;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -34,8 +36,13 @@ public class FiltroSegurança extends OncePerRequestFilter {
             var login = tokenService.validateToken(token);
             UserDetails user = userRepository.findByLogin(login);
 
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            if (user != null) {
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else {
+                response.sendError(HttpStatus.UNAUTHORIZED.value(), "Token inválido.");
+                return;
+            }
         }
         filterChain.doFilter(request, response);
     }

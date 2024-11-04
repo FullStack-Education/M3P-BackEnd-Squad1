@@ -20,16 +20,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecConfig {
-     @Autowired
-    FiltroSegurança filtroSegurança;
+
+   private final FiltroSegurança filtroSegurança;
 
     private static final Logger logger = LoggerFactory.getLogger(SecConfig.class);
+
+    public SecConfig(FiltroSegurança filtroSegurança) {
+        this.filtroSegurança = filtroSegurança;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         logger.info("Setando configurações de securança - SecurityConfig Spring BOOT.");
         return  httpSecurity
                 .authorizeHttpRequests(authorize -> authorize
+
+                        .requestMatchers("/swagger-ui", "/v3/api-docs/**").permitAll()
 
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
