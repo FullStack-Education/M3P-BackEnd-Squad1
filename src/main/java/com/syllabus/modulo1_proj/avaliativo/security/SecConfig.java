@@ -35,7 +35,7 @@ public class SecConfig {
         return  httpSecurity
                 .authorizeHttpRequests(authorize -> authorize
 
-                        .requestMatchers("/swagger-ui/*", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui", "/v3/api-docs/**").permitAll()
 
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()

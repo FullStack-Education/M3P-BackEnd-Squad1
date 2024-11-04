@@ -20,6 +20,7 @@ Não menos importante, ainda podemos citar a facilidade de acesso aos dados por 
 - Java
 - Spring Boot
 - Spring Security - JWT Token
+- Swaggeg para documentação
 - JPA / Hibernate
 - Maven
 - PostegreSQL (cliente ou docker)
@@ -28,6 +29,10 @@ Não menos importante, ainda podemos citar a facilidade de acesso aos dados por 
 
 ## Artefato
 modulo1_proj.avaliativo
+
+## Swagger - Lista de endpoints e retorno
+http://localhost:8080/v3/api-docs
+http://localhost:8080/swagger-ui/index.html
 
 ## Clonar repositório - Back-end
 https://github.com/FullStack-Education/M3P-BackEnd-Squad1
