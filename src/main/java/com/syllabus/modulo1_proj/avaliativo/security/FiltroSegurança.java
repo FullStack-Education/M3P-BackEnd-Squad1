@@ -19,11 +19,13 @@ public class FiltroSegurança extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(TokenService.class);
 
-    @Autowired
-    TokenService tokenService;
+    private final TokenService tokenService;
+    private final UsuarioRepository userRepository;
 
-    @Autowired
-    UsuarioRepository userRepository;
+    public FiltroSegurança(TokenService tokenService, UsuarioRepository userRepository) {
+        this.tokenService = tokenService;
+        this.userRepository = userRepository;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,

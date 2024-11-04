@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements UserDetailsService {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
-    @Autowired
-    UsuarioRepository repository;
+    private final UsuarioRepository repository;
+
+    public LoginServiceImpl(UsuarioRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
