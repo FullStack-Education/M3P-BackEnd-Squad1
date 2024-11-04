@@ -2,7 +2,6 @@ package com.syllabus.modulo1_proj.avaliativo.security;
 import jakarta.servlet.DispatcherType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -35,7 +34,9 @@ public class SecConfig {
         return  httpSecurity
                 .authorizeHttpRequests(authorize -> authorize
 
-                        .requestMatchers("/swagger-ui", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui/*", "/swagger-ui").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-resources/**", "v2/api-docs", "/v3/api-docs/*", "/v3/api-docs", "swagger-ui.html").permitAll()
+
 
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()

@@ -30,8 +30,10 @@ public class NotaController {
 
     @Operation(summary = "Criar nova nota", description = "Cadastra uma nova nota no sistema", responses = {
             @ApiResponse(responseCode = "201", description = "Nota criada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoNotaResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Uma nota só pode ser atribuída a um aluno (role: ALUNO).", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado para se cadastrar uma nota.", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "É necessário haver uma matéria para se cadastrar uma Nota.", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "Docente não encontrado para se cadastrar uma nota.", content = @Content(schema = @Schema()))
     })
     @PostMapping
     public ResponseEntity<DtoNotaResponse> criarNota(@RequestBody @Valid DtoNota novaNota) {
@@ -41,8 +43,7 @@ public class NotaController {
 
     @Operation(summary = "Obter nota por ID", description = "Retorna os dados de uma nota pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Dados da nota retornados com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoNotaResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Nota não encontrada"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Nota não encontrada", content = @Content(schema = @Schema()))
     })
     @GetMapping("{id}")
     public ResponseEntity<DtoNotaResponse> obterNotaPorId(@PathVariable Long id) {
@@ -52,8 +53,10 @@ public class NotaController {
 
     @Operation(summary = "Atualizar nota", description = "Atualiza os dados de uma nota pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Nota atualizada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoNotaResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Nota não encontrada"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Nota não encontrada", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "A alteração de uma Nota requer uma matéria.", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "A alteração de uma Nota requer um Aluno cadastrado.", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "A alteração de uma Nota requer uma Docente cadastrado.", content = @Content(schema = @Schema()))
     })
     @PutMapping("{id}")
     public ResponseEntity<DtoNotaResponse> atualizarNota(@PathVariable Long id, @RequestBody @Valid DtoNota nota) {
@@ -62,9 +65,8 @@ public class NotaController {
     }
 
     @Operation(summary = "Deletar nota", description = "Deleta uma nota pelo ID", responses = {
-            @ApiResponse(responseCode = "204", description = "Nota deletada com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Nota não encontrada"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "204", description = "Nota deletada com sucesso", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "Nota não encontrada", content = @Content(schema = @Schema()))
     })
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deletarNota(@PathVariable Long id) {

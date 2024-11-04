@@ -36,8 +36,7 @@ public class CursoController {
 
     @Operation(summary = "Adicionar novo curso", description = "Cadastra um novo curso no sistema", responses = {
             @ApiResponse(responseCode = "201", description = "Curso criado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Curso.class))),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Requisição inválida")
     })
     @PostMapping
     public ResponseEntity<Curso> adicionarCurso(@RequestBody @Valid DtoCurso novoCurso) {
@@ -47,8 +46,7 @@ public class CursoController {
 
     @Operation(summary = "Obter curso por ID", description = "Retorna os dados de um curso pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Dados do curso retornados com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Curso.class))),
-            @ApiResponse(responseCode = "404", description = "Curso não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Curso não encontrado")
     })
     @GetMapping("{id}")
     public ResponseEntity<Curso> obterCursoPorId(@PathVariable Long id) {
@@ -58,7 +56,7 @@ public class CursoController {
 
     @Operation(summary = "Listar todos os cursos", description = "Retorna uma lista de todos os cursos cadastrados", responses = {
             @ApiResponse(responseCode = "200", description = "Lista de cursos retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Curso.class))),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Não há cursos cadastrados.")
     })
     @GetMapping
     public ResponseEntity<List<Curso>> listarCursos() {
@@ -68,8 +66,7 @@ public class CursoController {
 
     @Operation(summary = "Atualizar curso", description = "Atualiza os dados de um curso pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Curso atualizado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Curso.class))),
-            @ApiResponse(responseCode = "404", description = "Curso não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Curso não encontrado para edição.", content = @Content(schema = @Schema()))
     })
     @PutMapping("{id}")
     public ResponseEntity<Curso> atualizarCurso(@PathVariable Long id, @RequestBody @Valid DtoCurso curso) {
@@ -79,8 +76,7 @@ public class CursoController {
 
     @Operation(summary = "Deletar curso", description = "Deleta um curso pelo ID", responses = {
             @ApiResponse(responseCode = "204", description = "Curso deletado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Curso não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Curso não encontrado", content = @Content(schema = @Schema()))
     })
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deletarCurso(@PathVariable Long id) {
@@ -91,8 +87,8 @@ public class CursoController {
 
     @Operation(summary = "Listar matérias por curso", description = "Retorna uma lista de matérias alocadas em um curso pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Lista de matérias retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Materia.class))),
-            @ApiResponse(responseCode = "404", description = "Curso não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Curso inexistente para pesquisa.", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "Não há matérias cadastradas para este curso.", content = @Content(schema = @Schema()))
     })
     @GetMapping("{id_curso}/materias")
     public ResponseEntity<List<Materia>> listarMateriaPorCurso(@PathVariable Long id_curso) {

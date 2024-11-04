@@ -30,8 +30,7 @@ public class DashboardController {
     }
 
     @Operation(summary = "Listar estatísticas do dashboard", description = "Retorna as estatísticas do dashboard", responses = {
-            @ApiResponse(responseCode = "200", description = "Estatísticas retornadas com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoDashBoard.class))),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "200", description = "Estatísticas retornadas com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoDashBoard.class)))
     })
     @GetMapping
     public ResponseEntity<DtoDashBoard> listarCursos() {

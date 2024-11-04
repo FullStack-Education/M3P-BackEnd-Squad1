@@ -124,7 +124,7 @@ public class AlunoImpl implements AlunoService {
             );
         }
         Aluno atual = repository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado para alteração.")
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado.")
         );
         repository.delete(atual);
         logger.info("Aluno excluído com sucesso, ID {}", id);

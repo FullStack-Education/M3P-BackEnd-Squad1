@@ -25,8 +25,6 @@ import java.util.List;
 @Tag(name = "Alunos", description = "Endpoints para gerenciamento de alunos")
 public class AlunoController {
 
-    //SWAGGER >>> http://localhost:8080/swagger-ui.html
-
     private static final Logger logger = LoggerFactory.getLogger(AlunoController.class);
     private final AlunoService service;
     private final NotaService notaService;
@@ -38,8 +36,8 @@ public class AlunoController {
 
     @Operation(summary = "Criar novo aluno", description = "Cadastra um novo aluno no sistema", responses = {
             @ApiResponse(responseCode = "201", description = "Aluno criado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoAlunoResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Impossível criar um Aluno sem um usuário não cadastrado.", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "Impossível criar um Aluno sem o vincular a uma Turma existente/válida.", content = @Content(schema = @Schema()))
     })
     @PostMapping
     public ResponseEntity<DtoAlunoResponse> criarAluno(@RequestBody @Valid DtoAlunoRequest novoAluno) {
@@ -49,8 +47,7 @@ public class AlunoController {
 
     @Operation(summary = "Obter aluno por ID", description = "Retorna os dados de um aluno pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Dados do aluno retornados com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoAlunoResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Aluno não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado", content = @Content(schema = @Schema()))
     })
     @GetMapping("{id}")
     public ResponseEntity<DtoAlunoResponse> obterAlunoPorId(@PathVariable Long id) {
@@ -60,8 +57,7 @@ public class AlunoController {
 
     @Operation(summary = "Atualizar aluno", description = "Atualiza os dados de um aluno pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Aluno atualizado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoAlunoResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Aluno não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado para alteração.", content = @Content(schema = @Schema()))
     })
     @PutMapping("{id}")
     public ResponseEntity<DtoAlunoResponse> atualizarAluno(@PathVariable Long id, @RequestBody @Valid DtoAlunoRequest aluno) {
@@ -71,8 +67,7 @@ public class AlunoController {
 
     @Operation(summary = "Deletar aluno", description = "Deleta um aluno pelo ID", responses = {
             @ApiResponse(responseCode = "204", description = "Aluno deletado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Aluno não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado", content = @Content(schema = @Schema()))
     })
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deletarAluno(@PathVariable Long id) {
@@ -83,7 +78,7 @@ public class AlunoController {
 
     @Operation(summary = "Listar todos os alunos", description = "Retorna uma lista de todos os alunos cadastrados", responses = {
             @ApiResponse(responseCode = "200", description = "Lista de alunos retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoAlunoResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Não há Alunos cadastrados.", content = @Content(schema = @Schema()))
     })
     @GetMapping
     public ResponseEntity<List<DtoAlunoResponse>> listarTodosAlunos() {
@@ -93,8 +88,8 @@ public class AlunoController {
 
     @Operation(summary = "Listar notas por aluno", description = "Retorna uma lista de notas de um aluno pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Lista de notas retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoNotaResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Aluno não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "403", description = "Disponível apenas a pontuação do usuário/aluno logado.", content = @Content(schema = @Schema()))
     })
     @GetMapping("{id_aluno}/notas")
     public ResponseEntity<List<DtoNotaResponse>> listarNotasPorAluno(@PathVariable Long id_aluno) {
@@ -104,8 +99,8 @@ public class AlunoController {
 
     @Operation(summary = "Obter pontuação total do aluno", description = "Retorna a pontuação total de um aluno pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Pontuação retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoNotaFinal.class))),
-            @ApiResponse(responseCode = "404", description = "Aluno não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Aluno não encontrado", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "Não há notas cadastradas.", content = @Content(schema = @Schema()))
     })
     @GetMapping("{id}/pontuacao")
     public ResponseEntity<DtoNotaFinal> pontuacaoAluno(@PathVariable Long id) {

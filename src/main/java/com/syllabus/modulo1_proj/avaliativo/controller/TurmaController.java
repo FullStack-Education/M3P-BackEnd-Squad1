@@ -32,8 +32,8 @@ public class TurmaController {
 
     @Operation(summary = "Criar nova turma", description = "Cadastra uma nova turma no sistema", responses = {
             @ApiResponse(responseCode = "201", description = "Turma criada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoTurmaResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "É necessário um Curso válido para se cadastrar uma Turma.", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "É necessário um Docente cadastrado para a Turma.", content = @Content(schema = @Schema()))
     })
     @PostMapping
     public ResponseEntity<DtoTurmaResponse> criarTurma(@RequestBody @Valid DtoTurma novaTurma) {
@@ -43,8 +43,7 @@ public class TurmaController {
 
     @Operation(summary = "Obter turma por ID", description = "Retorna os dados de uma turma pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Dados da turma retornados com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoTurmaResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Turma não encontrada"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Turma não encontrada", content = @Content(schema = @Schema()))
     })
     @GetMapping("{id}")
     public ResponseEntity<DtoTurmaResponse> obterTurmaPorId(@PathVariable Long id) {
@@ -54,8 +53,8 @@ public class TurmaController {
 
     @Operation(summary = "Atualizar turma", description = "Atualiza os dados de uma turma pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Turma atualizada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoTurmaResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Turma não encontrada"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Turma não encontrada", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "A alteração de uma Turma exige um curso válido.", content = @Content(schema = @Schema()))
     })
     @PutMapping("{id}")
     public ResponseEntity<DtoTurmaResponse> atualizarTurma(@PathVariable Long id, @RequestBody @Valid DtoTurma turma) {
@@ -65,8 +64,7 @@ public class TurmaController {
 
     @Operation(summary = "Deletar turma", description = "Deleta uma turma pelo ID", responses = {
             @ApiResponse(responseCode = "204", description = "Turma deletada com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Turma não encontrada"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Turma não encontrada", content = @Content(schema = @Schema()))
     })
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deletarTurma(@PathVariable Long id) {
@@ -77,7 +75,7 @@ public class TurmaController {
 
     @Operation(summary = "Listar todas as turmas", description = "Retorna uma lista de todas as turmas cadastradas", responses = {
             @ApiResponse(responseCode = "200", description = "Lista de turmas retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoTurmaResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Não há Turmas cadastradas.", content = @Content(schema = @Schema()))
     })
     @GetMapping
     public ResponseEntity<List<DtoTurmaResponse>> listarTodasAsTurmas() {

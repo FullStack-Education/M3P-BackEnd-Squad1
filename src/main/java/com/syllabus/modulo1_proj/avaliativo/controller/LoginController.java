@@ -46,9 +46,8 @@ public class LoginController {
 
     @Operation(summary = "Realizar login", description = "Autentica um usuário no sistema", responses = {
             @ApiResponse(responseCode = "200", description = "Login realizado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoTokenResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "401", description = "Credenciais inválidas"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "403", description = "Token inválido.", content = @Content(schema = @Schema()))
     })
     @PostMapping
     public ResponseEntity<DtoTokenResponse> login(@RequestBody @Valid LoginDtoRequest login) {

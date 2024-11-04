@@ -31,8 +31,8 @@ public class DocenteController {
 
     @Operation(summary = "Criar novo docente", description = "Cadastra um novo docente no sistema", responses = {
             @ApiResponse(responseCode = "201", description = "Docente criado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoDocenteResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "400", description = "Requisição inválida", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "Impossível criar um docente para um usuário não cadastrado.", content = @Content(schema = @Schema()))
     })
     @PostMapping
     public ResponseEntity<DtoDocenteResponse> criarDocente(@RequestBody @Valid DtoDocenteRequest novoDocente) {
@@ -42,8 +42,7 @@ public class DocenteController {
 
     @Operation(summary = "Obter docente por ID", description = "Retorna os dados de um docente pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Dados do docente retornados com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoDocenteResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Docente não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Docente não encontrado", content = @Content(schema = @Schema()))
     })
     @GetMapping("{id}")
     public ResponseEntity<DtoDocenteResponse> obterDocentePorId(@PathVariable Long id) {
@@ -53,8 +52,7 @@ public class DocenteController {
 
     @Operation(summary = "Atualizar docente", description = "Atualiza os dados de um docente pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Docente atualizado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoDocenteResponse.class))),
-            @ApiResponse(responseCode = "404", description = "Docente não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Docente não encontrado", content = @Content(schema = @Schema())),
     })
     @PutMapping("{id}")
     public ResponseEntity<DtoDocenteResponse> atualizarDocente(@PathVariable Long id, @RequestBody @Valid DtoDocenteRequest docente) {
@@ -64,8 +62,7 @@ public class DocenteController {
 
     @Operation(summary = "Deletar docente", description = "Deleta um docente pelo ID", responses = {
             @ApiResponse(responseCode = "204", description = "Docente deletado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Docente não encontrado"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Docente não encontrada para alteração.", content = @Content(schema = @Schema()))
     })
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deletarDocente(@PathVariable Long id) {
@@ -76,7 +73,7 @@ public class DocenteController {
 
     @Operation(summary = "Listar todos os docentes", description = "Retorna uma lista de todos os docentes cadastrados", responses = {
             @ApiResponse(responseCode = "200", description = "Lista de docentes retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoDocenteResponse.class))),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Não há Docentes cadastrados.", content = @Content(schema = @Schema()))
     })
     @GetMapping
     public ResponseEntity<List<DtoDocenteResponse>> listarTodosDocentes() {

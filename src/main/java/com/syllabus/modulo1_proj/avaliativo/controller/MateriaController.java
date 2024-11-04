@@ -32,8 +32,7 @@ public class MateriaController {
 
     @Operation(summary = "Criar nova matéria", description = "Cadastra uma nova matéria no sistema", responses = {
             @ApiResponse(responseCode = "201", description = "Matéria criada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Materia.class))),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "É necessário um Curso para se cadastrar uma matéria.", content = @Content(schema = @Schema()))
     })
     @PostMapping
     public ResponseEntity<Materia> criarMateria(@RequestBody @Valid DtoMateria novaMateria) {
@@ -43,8 +42,7 @@ public class MateriaController {
 
     @Operation(summary = "Obter matéria por ID", description = "Retorna os dados de uma matéria pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Dados da matéria retornados com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Materia.class))),
-            @ApiResponse(responseCode = "404", description = "Matéria não encontrada"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Matéria não encontrada", content = @Content(schema = @Schema()))
     })
     @GetMapping("{id}")
     public ResponseEntity<Materia> obterMateriaPorId(@PathVariable Long id) {
@@ -53,8 +51,7 @@ public class MateriaController {
     }
 
     @Operation(summary = "Listar todas as matérias", description = "Retorna uma lista de todas as matérias cadastradas", responses = {
-            @ApiResponse(responseCode = "200", description = "Lista de matérias retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Materia.class))),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "200", description = "Lista de matérias retornada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Materia.class)))
     })
     @GetMapping
     public ResponseEntity<List<Materia>> listarTodasMaterias() {
@@ -64,8 +61,8 @@ public class MateriaController {
 
     @Operation(summary = "Atualizar matéria", description = "Atualiza os dados de uma matéria pelo ID", responses = {
             @ApiResponse(responseCode = "200", description = "Matéria atualizada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Materia.class))),
-            @ApiResponse(responseCode = "404", description = "Matéria não encontrada"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Matéria não encontrada", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "A alteração de uma matéria exige um curso válido.", content = @Content(schema = @Schema()))
     })
     @PutMapping("{id}")
     public ResponseEntity<Materia> atualizarMateria(@PathVariable Long id, @RequestBody @Valid DtoMateria materia) {
@@ -74,9 +71,8 @@ public class MateriaController {
     }
 
     @Operation(summary = "Deletar matéria", description = "Deleta uma matéria pelo ID", responses = {
-            @ApiResponse(responseCode = "204", description = "Matéria deletada com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Matéria não encontrada"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "204", description = "Matéria deletada com sucesso", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "Matéria não encontrada", content = @Content(schema = @Schema()))
     })
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deletarMateria(@PathVariable Long id) {

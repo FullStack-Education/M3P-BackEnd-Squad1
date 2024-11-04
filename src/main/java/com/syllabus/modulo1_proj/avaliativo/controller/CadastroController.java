@@ -29,8 +29,8 @@ public class CadastroController {
 
     @Operation(summary = "Criar novo usuário", description = "Cadastra um novo usuário no sistema", responses = {
             @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = DtoUsuarioResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Papel não condizente com as opções disponíveis (nível de acesso).", content = @Content(schema = @Schema())),
+            @ApiResponse(responseCode = "404", description = "Usuário já cadastrado!.", content = @Content(schema = @Schema()))
     })
     @PostMapping
     public ResponseEntity<DtoUsuarioResponse> criarUsuario(@RequestBody @Valid DtoUsuarioRequest novoUsuario) {
