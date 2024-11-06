@@ -73,6 +73,26 @@ Assim, a ordem seguida pelas requisições do Postman é sugerida (arquivo prese
 A atribuição de Professor a um Curso ou Turma, entretanto, foi propositalemente deixada em aberto, dado que tais elementos podem ser criados posteriormente, com a inclusão do Docente, permitindo que seja alterado o Professor, ou outro seja atribuído.
 
 
+## Modelo para application.properties
+~~~java
+spring.application.name=modulo1_proj.avaliativo
+
+server.error.include-message=always
+
+modulo1_proj.avaliativo.security.token.secret=${JWT_SECRET:senha-secreta}
+
+spring.datasource.url=jdbc:postgresql://localhost:${PORT:5432}/${POSTGRES_DB:postgres}
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+
+spring.jpa.defer-datasource-initialization=true
+spring.sql.init.mode=always
+
+spring.jpa.show-sql=true
+~~~
 
 ## Considerações sobre a Segurança (importante!)
 O sistema de segurança faz uso de autenticação stateless (Bearer Authentication), enviando um token ao usuario cadastrado que solicite login e, através dele, gerenciando as suas credenciais e "role" de acesso ao sistema.
