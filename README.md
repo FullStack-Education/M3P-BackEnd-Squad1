@@ -73,6 +73,39 @@ Assim, a ordem seguida pelas requisições do Postman é sugerida (arquivo prese
 A atribuição de Professor a um Curso ou Turma, entretanto, foi propositalemente deixada em aberto, dado que tais elementos podem ser criados posteriormente, com a inclusão do Docente, permitindo que seja alterado o Professor, ou outro seja atribuído.
 
 
+Para uso do Postman pode-se usar o login inicial de admin:
+~~~javascript
+        {
+        "login": "admin",
+        "senha": "123"
+        }
+~~~
+
+Anotamos que os mocks inseridos através do data.sql não contemplam necessariamente todos os campos de preenchimento obrigatório do Front-End, servindo apenas de 'start' ou exemplo para a inicialização do sistema.
+
+Por fim, colacionamos as especificações do application.properties:
+
+~~~java
+spring.application.name=modulo1_proj.avaliativo
+
+server.error.include-message=always
+
+modulo1_proj.avaliativo.security.token.secret=${JWT_SECRET:senha-secreta}
+
+spring.datasource.url=jdbc:postgresql://localhost:${PORT:5432}/${POSTGRES_DB:postgres}
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+
+spring.jpa.defer-datasource-initialization=true
+spring.sql.init.mode=always
+
+spring.jpa.show-sql=true
+~~~
+
+
 ## Modelo para application.properties
 ~~~java
 spring.application.name=modulo1_proj.avaliativo
